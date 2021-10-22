@@ -19,6 +19,12 @@
             <DataTemplate DataType="{x:Type viewmodels:AffineTransformationsViewModel}">
                 <views:AffineTransformationsView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DragonCurveFractalViewModel}">
+                <views:DragonCurveFractalView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:KochSnowflakeFractalViewModel}">
+                <views:KochSnowflakeFractalView />
+            </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>
 </Window>

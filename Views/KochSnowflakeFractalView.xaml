@@ -1,0 +1,146 @@
+﻿<UserControl x:Class="WPF_TestProject2.Views.KochSnowflakeFractalView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:classes="clr-namespace:WPF_TestProject2.Classes"
+             xmlns:local="clr-namespace:WPF_TestProject2.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+
+        <ObjectDataProvider x:Key="fractalTypeEnum" 
+                            ObjectType="{x:Type System:Enum}"
+                            MethodName="GetValues">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="classes:FractalType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="orientationTypeEnum" 
+                            ObjectType="{x:Type System:Enum}"
+                            MethodName="GetValues">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="classes:OrientationType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
+
+
+
+    <Grid Background="#ECECEC">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="9*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" BorderThickness="1" HorizontalAlignment="Left" BorderBrush="Black" Margin="20, 10" Background="#CFE1B9">Info</Button>
+                <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#CFE1B9">Fractals</TextBlock>
+            </Grid>
+
+            <Grid Grid.Row="1" Background="#CFE1B9" Margin="10, 5">
+
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Column="1" Background="#CFE1B9">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="20, 5">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0">Select a fractal:</Label>
+                <ComboBox Grid.Row="1" Name="fractalsList" Background="White" VerticalAlignment="Top" 
+                          ItemsSource="{Binding Source={StaticResource fractalTypeEnum}}"
+                          SelectedItem="{Binding SelectedFractalType}">
+                </ComboBox>
+            </Grid>
+            <Grid Grid.Row="1" Margin="20, 5">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0">Number of iterations:</Label>
+                <TextBox Grid.Row="1" Background="White" Text="{Binding IterationsCount}"></TextBox>
+            </Grid>
+            <Grid Grid.Row="2" Margin="20, 5">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0">Orientation:</Label>
+                <ComboBox Grid.Row="1" Name="orientationsList" Background="White" VerticalAlignment="Top"                          
+                          ItemsSource="{Binding Source={StaticResource orientationTypeEnum}}"
+                          SelectedItem="{Binding SelectedOrientationType}">
+                </ComboBox>
+            </Grid>
+            <Grid Grid.Row="4" Margin="20, 5">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0">Scale (%):</Label>
+                <TextBox Grid.Row="1" Background="White" Text="{Binding Scale}"></TextBox>
+            </Grid>
+            <Grid Grid.Row="5" Margin="20, 5">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0">Render time (sec):</Label>
+                <TextBox Grid.Row="1" Background="White" Text="{Binding RenderTime}"></TextBox>
+            </Grid>
+            <Grid Grid.Row="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Command="{Binding NavigateMenuCommand}" BorderThickness="1" BorderBrush="Black" Margin="5, 15" Background="#CFE1B9">
+                    back
+                </Button>
+                <Button Grid.Column="1" BorderThickness="1" BorderBrush="Black" Margin="5, 15" Background="#CFE1B9">
+                    zoom
+                </Button>
+                <Button Grid.Column="2" BorderThickness="1" BorderBrush="Black" Margin="5, 15" Background="#CFE1B9">
+                    copy
+                </Button>
+                <Button Grid.Column="3" BorderThickness="1" BorderBrush="Black" Margin="5, 15" Background="#CFE1B9">
+                    reset
+                </Button>
+
+            </Grid>
+        </Grid>
+
+    </Grid>
+</UserControl>

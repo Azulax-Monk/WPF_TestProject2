@@ -55,14 +55,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\FractalType.cs" />
+    <Compile Include="Classes\OrientationType.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\DelegateCommand.cs" />
+    <Compile Include="Models\DragonCurveFractalModel.cs" />
+    <Compile Include="Models\KochSnowflakeFractalModel.cs" />
+    <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="ViewModels\AffineTransformationsViewModel.cs" />
+    <Compile Include="ViewModels\DragonCurveFractalViewModel.cs" />
+    <Compile Include="ViewModels\KochSnowflakeFractalViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\AffineTransformationsView.xaml.cs">
       <DependentUpon>AffineTransformationsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DragonCurveFractalView.xaml.cs">
+      <DependentUpon>DragonCurveFractalView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\KochSnowflakeFractalView.xaml.cs">
+      <DependentUpon>KochSnowflakeFractalView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
@@ -80,6 +93,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\AffineTransformationsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DragonCurveFractalView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\KochSnowflakeFractalView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -114,10 +135,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Stores\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\MenuImage.png" />
   </ItemGroup>

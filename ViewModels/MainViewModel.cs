@@ -3,16 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using WPF_TestProject2.Commands;
+using WPF_TestProject2.Stores;
 
 namespace WPF_TestProject2.ViewModels
 {
     class MainViewModel : ViewModelBase
     {
-        public ViewModelBase CurrentViewModel { get;  }
+        private readonly NavigationStore _navigationStore;
+        public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
 
-        public MainViewModel()
+        public MainViewModel(NavigationStore navigationStore)
         {
-            CurrentViewModel = new MenuViewModel();
+            _navigationStore = navigationStore;
+            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
         }
-    } 
+
+        private void OnCurrentViewModelChanged()
+        {
+            OnPropertyChanged(nameof(CurrentViewModel));
+        }
+    }
 }
