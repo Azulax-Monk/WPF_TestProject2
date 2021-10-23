@@ -37,6 +37,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -59,10 +61,12 @@
     <Compile Include="Classes\OrientationType.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\DelegateCommand.cs" />
+    <Compile Include="Models\BarnsleyFernFractalModel.cs" />
     <Compile Include="Models\DragonCurveFractalModel.cs" />
     <Compile Include="Models\KochSnowflakeFractalModel.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="ViewModels\AffineTransformationsViewModel.cs" />
+    <Compile Include="ViewModels\BarnsleyFernFractalViewModel.cs" />
     <Compile Include="ViewModels\DragonCurveFractalViewModel.cs" />
     <Compile Include="ViewModels\KochSnowflakeFractalViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -70,6 +74,9 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\AffineTransformationsView.xaml.cs">
       <DependentUpon>AffineTransformationsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BarnsleyFernFractalView.xaml.cs">
+      <DependentUpon>BarnsleyFernFractalView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DragonCurveFractalView.xaml.cs">
       <DependentUpon>DragonCurveFractalView.xaml</DependentUpon>
@@ -93,6 +100,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\AffineTransformationsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BarnsleyFernFractalView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

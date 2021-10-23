@@ -25,6 +25,9 @@
             <DataTemplate DataType="{x:Type viewmodels:KochSnowflakeFractalViewModel}">
                 <views:KochSnowflakeFractalView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:BarnsleyFernFractalViewModel}">
+                <views:BarnsleyFernFractalView />
+            </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>
 </Window>

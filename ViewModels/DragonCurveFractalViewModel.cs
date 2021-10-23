@@ -31,7 +31,8 @@ namespace WPF_TestProject2.ViewModels
                 DragonCurveFractalModel.SelectedFractalType = value;
                 if (value == FractalType.KOCH_SNOWFLAKE)
                     this.NavigateKochSnowflakeFractalCommand.Execute(null);
-                //else if (value == FractalType.BARNSLEY_FERN)
+                else if (value == FractalType.BARNSLEY_FERN)
+                    this.NavigateBarnsleyFernFractalCommand.Execute(null);
 
                 OnPropertyChanged(nameof(SelectedFractalType));
             }
@@ -116,6 +117,28 @@ namespace WPF_TestProject2.ViewModels
         public void NavigateKochSnowflakeFractal()
         {
             _navigationStore.CurrentViewModel = new KochSnowflakeFractalViewModel(_navigationStore);
+        }
+        /// <summary>
+        /// navigation to barnsley fern fracral viewmodel
+        /// </summary>
+        private DelegateCommand _navigateBarnsleyFernFractalCommand;
+
+        public ICommand NavigateBarnsleyFernFractalCommand
+        {
+            get
+            {
+                if (_navigateBarnsleyFernFractalCommand == null)
+                {
+                    Console.WriteLine("Reached here");
+                    _navigateBarnsleyFernFractalCommand = new DelegateCommand(NavigateBarnsleyFernFractal);
+                }
+                return _navigateBarnsleyFernFractalCommand;
+            }
+        }
+
+        public void NavigateBarnsleyFernFractal()
+        {
+            _navigationStore.CurrentViewModel = new BarnsleyFernFractalViewModel(_navigationStore);
         }
         #endregion
     }
