@@ -25,9 +25,9 @@ namespace WPF_TestProject2.Classes
             Level = 4;
             EdgeCount = 0;
             
-            _fInit.AddVertex(new Point(351, -27)); //120, 340
-            _fInit.AddVertex(new Point(-243, 81)); //200, 40
-            _fInit.AddVertex(new Point(-81, -243)); //280, 340
+            _fInit.AddVertex(new Point(0, 0)); //120, 340
+            _fInit.AddVertex(new Point(100, 100)); //200, 40
+            _fInit.AddVertex(new Point(200, 0)); //280, 340
 
             _fGen.AddNode(0);
             _fGen.AddNode(60);

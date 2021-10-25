@@ -31,7 +31,8 @@ namespace WPF_TestProject2.ViewModels
 
         private WriteableBitmap GetFractal()
         {
-            Bitmap bmp = new Bitmap(750, 650);
+            int sWidth = 700, sHeight = 650;
+            Bitmap bmp = new Bitmap(sWidth, sHeight);
             Point center = new Point(100, 200);
 
             FractalGenerator fGen = new FractalGenerator();
@@ -50,7 +51,8 @@ namespace WPF_TestProject2.ViewModels
                 Tuple<Point, Point> edge = dragonCurve.GetEdge(i);
                 Point start = new Point(edge.Item1.X + center.X, edge.Item1.Y + center.Y);
                 Point end = new Point(edge.Item2.X + center.X, edge.Item2.Y + center.Y);
-                GraphicsUtils.DrawLine(bmp, GraphicsUtils.GetPointsOnLine(start, end), System.Drawing.Color.White);
+                if (GraphicsUtils.IsFit(start, sWidth, sHeight) && GraphicsUtils.IsFit(end, sWidth, sHeight))
+                    GraphicsUtils.DrawLine(bmp, GraphicsUtils.GetPointsOnLine(start, end), System.Drawing.Color.White);
             }
 
             return GraphicsUtils.ConvertToWriteableBitmap(bmp);

@@ -13,12 +13,14 @@ namespace WPF_TestProject2.Classes
         private MatrixUtils _matrixUtils;
         private BarnsleyFernFractalModel _fractalModel;
         private int[] _probabilitiesRange;
+
         public BarnsleyFernFractal(BarnsleyFernFractalModel fractalModel)
         {
             _matrixUtils = new MatrixUtils();
             _fractalModel = fractalModel;
             _probabilitiesRange = CreateProbabilitiesRange();
         }
+
         public Tuple<double, double> GetNextPoint(Tuple<double, double> currPoint, int randomNum)
         {
             
@@ -41,6 +43,7 @@ namespace WPF_TestProject2.Classes
             return (_fractalModel.A[transformationNum] * currPoint.Item1) + (_fractalModel.B[transformationNum] * currPoint.Item2) +
                 _fractalModel.E[transformationNum];
         }
+
         private double GetNextY(int transformationNum, Tuple<double, double> currPoint)
         {
             return (_fractalModel.C[transformationNum] * currPoint.Item1) + (_fractalModel.D[transformationNum] * currPoint.Item2) +
