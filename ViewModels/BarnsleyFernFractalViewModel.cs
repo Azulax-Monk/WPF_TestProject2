@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -52,6 +53,7 @@ namespace WPF_TestProject2.ViewModels
 
             return GraphicsUtils.ConvertToWriteableBitmap(bmp);
         }
+
         public System.Windows.Media.Imaging.WriteableBitmap FractalBmp
         {
             get { return _fractalBmp; }
@@ -76,6 +78,7 @@ namespace WPF_TestProject2.ViewModels
                 OnPropertyChanged(nameof(SelectedFractalType));
             }
         }
+
         public ObservableCollection<double> Probabilities
         {
             get { return BarnsleyFernFractalModel.Probabilites; }
@@ -95,6 +98,7 @@ namespace WPF_TestProject2.ViewModels
                 OnPropertyChanged(nameof(A));
             }
         }
+
         public ObservableCollection<double> B
         {
             get { return BarnsleyFernFractalModel.B; }
@@ -104,6 +108,7 @@ namespace WPF_TestProject2.ViewModels
                 OnPropertyChanged(nameof(B));
             }
         }
+
         public ObservableCollection<double> C
         {
             get { return BarnsleyFernFractalModel.C; }
@@ -113,6 +118,7 @@ namespace WPF_TestProject2.ViewModels
                 OnPropertyChanged(nameof(C));
             }
         }
+
         public ObservableCollection<double> D
         {
             get { return BarnsleyFernFractalModel.D; }
@@ -122,6 +128,7 @@ namespace WPF_TestProject2.ViewModels
                 OnPropertyChanged(nameof(D));
             }
         }
+
         public ObservableCollection<double> E
         {
             get { return BarnsleyFernFractalModel.E; }
@@ -141,6 +148,7 @@ namespace WPF_TestProject2.ViewModels
                 OnPropertyChanged(nameof(F));
             }
         }
+
         public int Scale
         {
             get { return BarnsleyFernFractalModel.Scale; }
@@ -151,7 +159,7 @@ namespace WPF_TestProject2.ViewModels
             }
         }
 
-        public int RenderTime
+        public float RenderTime
         {
             get { return BarnsleyFernFractalModel.RenderTime; }
             set
@@ -230,10 +238,13 @@ namespace WPF_TestProject2.ViewModels
                     (_submitCommand = new Command(obj =>
                     {
                         Console.WriteLine("sff");
+                        Stopwatch sw = new Stopwatch();
+                        sw.Start();
                         FractalBmp = GetFractal();
+                        RenderTime = sw.ElapsedMilliseconds / 1000.0f;
                     }));
             }
         }
+        #endregion
     }
 }
-#endregion

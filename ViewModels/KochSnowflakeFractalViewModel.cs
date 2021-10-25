@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -28,25 +29,29 @@ namespace WPF_TestProject2.ViewModels
             KochSnowflakeFractalModel = new KochSnowflakeFractalModel();
 
             _navigationStore = navigationStore;
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             _fractalBmp = GetFractal();
+            RenderTime = sw.ElapsedMilliseconds / 1000.0f;
         }
 
         public WriteableBitmap GetFractal()
         {
-            Bitmap bmp = new Bitmap(700, 700);
-            Point center = new Point(300, 300);
+            int sWidth = 1280, sHeight = 900;
+            Bitmap bmp = new Bitmap(sWidth, sHeight);
+            Point center = new Point(100, 350);
 
             FractalGenerator fGen = new FractalGenerator();
             FractalInitiator fInit = new FractalInitiator();
 
-            fInit.AddVertex(new Point(351, -27)); 
-            fInit.AddVertex(new Point(-243, 81)); 
-            fInit.AddVertex(new Point(-81, -243));
+            fInit.AddVertex(new Point(0, 0)); 
+            fInit.AddVertex(new Point(450, 450));
+            fInit.AddVertex(new Point(900, 0)); 
 
             fGen.AddNode(0);
-            fGen.AddNode(60);
-            fGen.AddNode(-120);
-            fGen.AddNode(60);
+            fGen.AddNode(-60);
+            fGen.AddNode(120);
+            fGen.AddNode(-60);
 
             KochSnowflakeFractal kochSnowflake = new KochSnowflakeFractal(fGen, fInit, IterationsCount);
             kochSnowflake.Run();
@@ -55,7 +60,8 @@ namespace WPF_TestProject2.ViewModels
                 Tuple<Point, Point> edge = kochSnowflake.GetEdge(i);
                 Point start = new Point(edge.Item1.X + center.X, edge.Item1.Y + center.Y);
                 Point end = new Point(edge.Item2.X + center.X, edge.Item2.Y + center.Y);
-                GraphicsUtils.DrawLine(bmp, GraphicsUtils.GetPointsOnLine(start, end), System.Drawing.Color.White);
+                if (GraphicsUtils.IsFit(start, sWidth, sHeight) && GraphicsUtils.IsFit(end, sWidth, sHeight))
+                    GraphicsUtils.DrawLine(bmp, start, end, System.Drawing.Color.White);
             }
 
             return GraphicsUtils.ConvertToWriteableBitmap(bmp);
@@ -92,6 +98,7 @@ namespace WPF_TestProject2.ViewModels
             set
             {
                 KochSnowflakeFractalModel.SelectedOrientationType = value;
+                FractalBmp = GraphicsUtils.RotateImage(FractalBmp, (float)KochSnowflakeFractalModel.SelectedOrientationType);
                 OnPropertyChanged(nameof(SelectedOrientationType));
             }
         }
@@ -102,7 +109,10 @@ namespace WPF_TestProject2.ViewModels
             set
             {
                 KochSnowflakeFractalModel.IterationsCount = value;
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
                 FractalBmp = GetFractal();
+                RenderTime = sw.ElapsedMilliseconds / 1000.0f;
                 OnPropertyChanged(nameof(IterationsCount));
             }
         }
@@ -117,7 +127,7 @@ namespace WPF_TestProject2.ViewModels
             }
         }
 
-        public int RenderTime
+        public float RenderTime
         {
             get { return KochSnowflakeFractalModel.RenderTime; }
             set

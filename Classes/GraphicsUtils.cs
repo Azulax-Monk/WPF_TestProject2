@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace WPF_TestProject2.Classes
 {
@@ -93,6 +94,22 @@ namespace WPF_TestProject2.Classes
             }
         }
 
+        public static void DrawLine(Bitmap bmp, Point p1, Point p2, System.Drawing.Color color)
+        {
+            var line = GetPointsOnLine(p1, p2);
+            foreach (Point pixel in line)
+            {
+                bmp.SetPixel(pixel.X, pixel.Y, color);
+            }
+        }
+
+        public static bool IsFit(Point p1, int screenWidth, int screenHeight)
+        {
+            if (p1.X < 0 || p1.X > screenWidth || p1.Y < 0 || p1.Y > screenHeight)
+                return false;
+            return true;
+        }
+
         public static bool CheckIfPointInRange(Bitmap bmp, Point point)
         {
             if (point.X >= bmp.Width || point.X <= 0 || point.Y >= bmp.Height || point.Y <= 0)
@@ -111,6 +128,11 @@ namespace WPF_TestProject2.Classes
            
 
             return new WriteableBitmap(bitmapSource);
+        }
+
+        public static WriteableBitmap RotateImage(WriteableBitmap bmp, float angle)
+        {
+            return new WriteableBitmap(new TransformedBitmap(bmp, new RotateTransform(angle)));
         }
     }
 }
