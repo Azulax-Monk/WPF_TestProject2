@@ -50,12 +50,15 @@
             </Grid>
 
             <Grid Grid.Row="1" Background="#CFE1B9" Margin="10, 5">
-                <Image x:Name="Fractal" Source="{Binding FractalBmp}" Stretch="None">
-                    <Image.LayoutTransform>
-                        <ScaleTransform CenterX="0" CenterY="0" ScaleX="{Binding Path= Value, ElementName=Slider, Mode=Default}"
+                <ScrollViewer x:Name="scrollViewer" ScrollViewer.VerticalScrollBarVisibility="Hidden" 
+                              ScrollViewer.HorizontalScrollBarVisibility="Visible" >
+                    <Image x:Name="Fractal" Source="{Binding FractalBmp}" Stretch="None">
+                        <Image.LayoutTransform>
+                            <ScaleTransform CenterX="0" CenterY="0" ScaleX="{Binding Path= Value, ElementName=Slider, Mode=Default}"
                                         ScaleY="{Binding Path=Value, ElementName=Slider, Mode=Default}"/>
-                    </Image.LayoutTransform>
-                </Image>
+                        </Image.LayoutTransform>
+                    </Image>
+                </ScrollViewer>
             </Grid>
         </Grid>
 
