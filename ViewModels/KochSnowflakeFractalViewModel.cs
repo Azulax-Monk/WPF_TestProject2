@@ -33,26 +33,29 @@ namespace WPF_TestProject2.ViewModels
 
         public WriteableBitmap GetFractal()
         {
-            //FractalGenerator fg = new FractalGenerator();
-            //fg.SetStartPoint(new System.Drawing.Point(100, 100));
-            //fg.SetEndPoint(new System.Drawing.Point(300, 100));
-            //fg.AddNode(60f);
-            //fg.AddNode(-60f);
-            //fg.Compute();
+            Bitmap bmp = new Bitmap(700, 700);
+            Point center = new Point(300, 300);
 
-            Bitmap bmp = new Bitmap(500, 500);
-            //for (int i = 0; i < fg.EdgeCount; ++i)
+            //FractalInitiator _fInit = new FractalInitiator();
+            //_fInit.AddVertex(new Point(120, 340)); //120, 340
+            //_fInit.AddVertex(new Point(200, 40)); //320, 40
+            //_fInit.AddVertex(new Point(280, 340));
+            //for (int i = 0; i < _fInit.EdgeCount; ++i)
             //{
-            //    Tuple<Point, Point> edge = fg.GetEdge(i);
+            //    Tuple<Point, Point> edge = _fInit.GetEdge(i);
             //    GraphicsUtils.DrawLine(bmp, GraphicsUtils.GetPointsOnLine(edge.Item1, edge.Item2), System.Drawing.Color.White);
             //}
+
             KochSnowflakeFractal kochSnowflake = new KochSnowflakeFractal();
             kochSnowflake.Run();
             for (int i = 0; i < kochSnowflake.EdgeCount; ++i)
             {
                 Tuple<Point, Point> edge = kochSnowflake.GetEdge(i);
-                GraphicsUtils.DrawLine(bmp, GraphicsUtils.GetPointsOnLine(edge.Item1, edge.Item2), System.Drawing.Color.White);
+                Point start = new Point(edge.Item1.X + center.X, edge.Item1.Y + center.Y);
+                Point end = new Point(edge.Item2.X + center.X, edge.Item2.Y + center.Y);
+                GraphicsUtils.DrawLine(bmp, GraphicsUtils.GetPointsOnLine(start, end), System.Drawing.Color.White);
             }
+
 
             return GraphicsUtils.ConvertToWriteableBitmap(bmp);
         }

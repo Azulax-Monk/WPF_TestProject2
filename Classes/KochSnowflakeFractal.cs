@@ -22,15 +22,15 @@ namespace WPF_TestProject2.Classes
             _fInit = new FractalInitiator();
             _edgeStarts = new List<Point>();
             _edgeEnds = new List<Point>();
-            Level = 1;
+            Level = 4;
             EdgeCount = 0;
             
-            _fInit.AddVertex(new Point(120, 340)); //120, 340
-            _fInit.AddVertex(new Point(320, 40)); //320, 40
-            _fInit.AddVertex(new Point(400, 340));
+            _fInit.AddVertex(new Point(351, -27)); //120, 340
+            _fInit.AddVertex(new Point(-243, 81)); //200, 40
+            _fInit.AddVertex(new Point(-81, -243)); //280, 340
 
             _fGen.AddNode(60);
-            _fGen.AddNode(-60);
+            _fGen.AddNode(-120);
         }
 
         public KochSnowflakeFractal(FractalGenerator fGen, FractalInitiator fInit, int level)

@@ -74,8 +74,8 @@ namespace WPF_TestProject2.Classes
                     segmentCount += (float)Math.Abs(Math.Cos(cumulativeAngle * (Math.PI / 180.0f)));
                 }
 
-                float initLenght = (float)Math.Sqrt(Math.Pow((_end.X - _start.X), 2.0) +
-                    Math.Pow((_end.Y - _start.Y), 2.0));
+                float initLenght = (float)Math.Sqrt(Math.Pow(_end.X - _start.X, 2.0) +
+                    Math.Pow(_end.Y - _start.Y, 2.0));
 
                 float edgeLength = initLenght / segmentCount;
 
@@ -86,10 +86,12 @@ namespace WPF_TestProject2.Classes
 
                 // Loop through each node and find appropriate edge
                 Point startTmp = edgeEnd, endTmp = new Point(-1, -1);
+                float sightAngle = angle;
                 foreach (float currentAngle in _nodeAngles)
                 {
                     _startPoints.Add(startTmp);
-                    endTmp = GraphicsUtils.GetEndpoint(currentAngle, startTmp, edgeLength);
+                    sightAngle += currentAngle;
+                    endTmp = GraphicsUtils.GetEndpoint(sightAngle, startTmp, edgeLength);
                     _endPoints.Add(endTmp);
                     startTmp = endTmp;
                 }
