@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using WPF_TestProject2.Classes;
 using WPF_TestProject2.Commands;
 using WPF_TestProject2.Models;
@@ -8,14 +10,48 @@ namespace WPF_TestProject2.ViewModels
 {
     class BarnsleyFernFractalViewModel: ViewModelBase
     {
+        private System.Windows.Media.Imaging.WriteableBitmap _fractalBmp;
         private readonly NavigationStore _navigationStore;
-
         public BarnsleyFernFractalModel BarnsleyFernFractalModel;
 
         public BarnsleyFernFractalViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
             BarnsleyFernFractalModel = new BarnsleyFernFractalModel();
+            _fractalBmp = GetFractal();
+        }
+
+        private WriteableBitmap GetFractal()
+        {
+            Bitmap bmp = new Bitmap(600, 600);
+            Tuple<double, double> point = new Tuple<double, double>(0, 0);
+            BarnsleyFernFractal fractal = new BarnsleyFernFractal(BarnsleyFernFractalModel);
+            var r = new Random();
+            int randomNum;
+            for (int count = 0; count < 100000; count++)
+            {              
+                randomNum = r.Next(100);
+                point = fractal.GetNextPoint(point, randomNum);
+                int x = (int)(300 + 60 * point.Item1);
+                int y = (int)((600 - 60 * point.Item2)-100);
+                if (!GraphicsUtils.CheckIfPointInRange(bmp, new Point(x, y)))
+                    continue;
+                try
+                {
+                    bmp.SetPixel(x, y, Color.Black);
+                }
+                catch(Exception ex)
+                {
+                    //display this on form
+                    Console.WriteLine($"{ex} occured.");
+                }
+            }
+
+            return GraphicsUtils.ConvertToWriteableBitmap(bmp);
+        }
+        public System.Windows.Media.Imaging.WriteableBitmap FractalBmp
+        {
+            get { return _fractalBmp; }
         }
 
         public FractalType SelectedFractalType

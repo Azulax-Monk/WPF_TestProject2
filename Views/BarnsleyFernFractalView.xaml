@@ -46,7 +46,7 @@
            
         </Grid>
             <Grid Grid.Row="1" Background="#CFE1B9" Margin="10, 5">
-
+                <Image x:Name="Fractal" Source="{Binding FractalBmp}" />
             </Grid>
         </Grid>
 

@@ -57,11 +57,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\BarnsleyFernFractal.cs" />
     <Compile Include="Classes\FractalGenerator.cs" />
     <Compile Include="Classes\FractalInitiator.cs" />
     <Compile Include="Classes\FractalType.cs" />
     <Compile Include="Classes\GraphicsUtils.cs" />
     <Compile Include="Classes\KochSnowflakeFractal.cs" />
+    <Compile Include="Classes\MatrixUtils.cs" />
     <Compile Include="Classes\OrientationType.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\DelegateCommand.cs" />

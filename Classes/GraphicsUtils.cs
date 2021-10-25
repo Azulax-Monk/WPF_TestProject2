@@ -96,6 +96,15 @@ namespace WPF_TestProject2.Classes
                 bmp.SetPixel(pixel.X, pixel.Y, color);
             }
         }
+
+        public static bool CheckIfPointInRange(Bitmap bmp, Point point)
+        {
+            if (point.X >= bmp.Width || point.X <= 0 || point.Y >= bmp.Height || point.Y <= 0)
+            {
+                return false;
+            }
+            return true;
+        }
     
         public static WriteableBitmap ConvertToWriteableBitmap(Bitmap bmp)
         {
