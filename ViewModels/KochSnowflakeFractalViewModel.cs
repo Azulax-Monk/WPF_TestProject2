@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using WPF_TestProject2.Classes;
 using WPF_TestProject2.Commands;
 using WPF_TestProject2.Models;
@@ -16,12 +19,47 @@ namespace WPF_TestProject2.ViewModels
     {
         private readonly NavigationStore _navigationStore;
 
+        private System.Windows.Media.Imaging.WriteableBitmap _fractalBmp;
+
         public KochSnowflakeFractalModel KochSnowflakeFractalModel;
 
         public KochSnowflakeFractalViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
+            _fractalBmp = GetFractal();
+            
             KochSnowflakeFractalModel = new KochSnowflakeFractalModel();
+        }
+
+        public WriteableBitmap GetFractal()
+        {
+            //FractalGenerator fg = new FractalGenerator();
+            //fg.SetStartPoint(new System.Drawing.Point(100, 100));
+            //fg.SetEndPoint(new System.Drawing.Point(300, 100));
+            //fg.AddNode(60f);
+            //fg.AddNode(-60f);
+            //fg.Compute();
+
+            Bitmap bmp = new Bitmap(500, 500);
+            //for (int i = 0; i < fg.EdgeCount; ++i)
+            //{
+            //    Tuple<Point, Point> edge = fg.GetEdge(i);
+            //    GraphicsUtils.DrawLine(bmp, GraphicsUtils.GetPointsOnLine(edge.Item1, edge.Item2), System.Drawing.Color.White);
+            //}
+            KochSnowflakeFractal kochSnowflake = new KochSnowflakeFractal();
+            kochSnowflake.Run();
+            for (int i = 0; i < kochSnowflake.EdgeCount; ++i)
+            {
+                Tuple<Point, Point> edge = kochSnowflake.GetEdge(i);
+                GraphicsUtils.DrawLine(bmp, GraphicsUtils.GetPointsOnLine(edge.Item1, edge.Item2), System.Drawing.Color.White);
+            }
+
+            return GraphicsUtils.ConvertToWriteableBitmap(bmp);
+        }
+
+        public System.Windows.Media.Imaging.WriteableBitmap FractalBmp
+        {
+            get { return _fractalBmp; }
         }
 
         public FractalType SelectedFractalType

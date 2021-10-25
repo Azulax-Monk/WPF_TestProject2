@@ -34,7 +34,7 @@ namespace WPF_TestProject2.Models
             F = new double[] {0,1.6,1.6,0.44 };
 
             Scale = 100;
-            RenderTime = 1;
+            RenderTime = 0;
         }
     }
 }

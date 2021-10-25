@@ -116,7 +116,7 @@
                 </Grid.RowDefinitions>
 
                 <Label Grid.Row="0">Render time (sec):</Label>
-                <TextBox Grid.Row="1" Background="White" Text="{Binding RenderTime}"></TextBox>
+                <TextBox Grid.Row="1" IsReadOnly="True" Background="White" Text="{Binding RenderTime}"></TextBox>
             </Grid>
             <Grid Grid.Row="6">
                 <Grid.ColumnDefinitions>

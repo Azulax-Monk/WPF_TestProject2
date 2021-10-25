@@ -30,7 +30,7 @@ namespace WPF_TestProject2.Models
             IterationsCount = 1;
             SelectedOrientationType = OrientationType.UP;
             Scale = 100;
-            RenderTime = 1;
+            RenderTime = 0;
         }
     }
 }
