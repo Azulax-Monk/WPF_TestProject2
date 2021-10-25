@@ -21,13 +21,12 @@ namespace WPF_TestProject2.ViewModels
         {
             _navigationStore = navigationStore;
             BarnsleyFernFractalModel = new BarnsleyFernFractalModel();
-            _fractalBmp = GetFractal();
         }
 
 
         private WriteableBitmap GetFractal()
         {
-            Bitmap bmp = new Bitmap(600, 600);
+            Bitmap bmp = new Bitmap(700, 700);
             Tuple<double, double> point = new Tuple<double, double>(0, 0);
             BarnsleyFernFractal fractal = new BarnsleyFernFractal(BarnsleyFernFractalModel);
             var r = new Random();
