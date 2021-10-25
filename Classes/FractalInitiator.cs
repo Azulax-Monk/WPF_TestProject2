@@ -21,6 +21,7 @@ namespace WPF_TestProject2.Classes
                     return _vertices.Count;
             }
         }
+
         private List<Point> _vertices;
 
         public FractalInitiator()

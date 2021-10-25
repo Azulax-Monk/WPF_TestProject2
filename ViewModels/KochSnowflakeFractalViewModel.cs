@@ -25,10 +25,10 @@ namespace WPF_TestProject2.ViewModels
 
         public KochSnowflakeFractalViewModel(NavigationStore navigationStore)
         {
+            KochSnowflakeFractalModel = new KochSnowflakeFractalModel();
+
             _navigationStore = navigationStore;
             _fractalBmp = GetFractal();
-            
-            KochSnowflakeFractalModel = new KochSnowflakeFractalModel();
         }
 
         public WriteableBitmap GetFractal()
@@ -36,17 +36,19 @@ namespace WPF_TestProject2.ViewModels
             Bitmap bmp = new Bitmap(700, 700);
             Point center = new Point(300, 300);
 
-            //FractalInitiator _fInit = new FractalInitiator();
-            //_fInit.AddVertex(new Point(120, 340)); //120, 340
-            //_fInit.AddVertex(new Point(200, 40)); //320, 40
-            //_fInit.AddVertex(new Point(280, 340));
-            //for (int i = 0; i < _fInit.EdgeCount; ++i)
-            //{
-            //    Tuple<Point, Point> edge = _fInit.GetEdge(i);
-            //    GraphicsUtils.DrawLine(bmp, GraphicsUtils.GetPointsOnLine(edge.Item1, edge.Item2), System.Drawing.Color.White);
-            //}
+            FractalGenerator fGen = new FractalGenerator();
+            FractalInitiator fInit = new FractalInitiator();
 
-            KochSnowflakeFractal kochSnowflake = new KochSnowflakeFractal();
+            fInit.AddVertex(new Point(351, -27)); 
+            fInit.AddVertex(new Point(-243, 81)); 
+            fInit.AddVertex(new Point(-81, -243));
+
+            fGen.AddNode(0);
+            fGen.AddNode(60);
+            fGen.AddNode(-120);
+            fGen.AddNode(60);
+
+            KochSnowflakeFractal kochSnowflake = new KochSnowflakeFractal(fGen, fInit, IterationsCount);
             kochSnowflake.Run();
             for (int i = 0; i < kochSnowflake.EdgeCount; ++i)
             {
@@ -56,13 +58,17 @@ namespace WPF_TestProject2.ViewModels
                 GraphicsUtils.DrawLine(bmp, GraphicsUtils.GetPointsOnLine(start, end), System.Drawing.Color.White);
             }
 
-
             return GraphicsUtils.ConvertToWriteableBitmap(bmp);
         }
 
         public System.Windows.Media.Imaging.WriteableBitmap FractalBmp
         {
             get { return _fractalBmp; }
+            set 
+            { 
+                _fractalBmp = value;
+                OnPropertyChanged(nameof(FractalBmp));
+            }
         }
 
         public FractalType SelectedFractalType
@@ -96,6 +102,7 @@ namespace WPF_TestProject2.ViewModels
             set
             {
                 KochSnowflakeFractalModel.IterationsCount = value;
+                FractalBmp = GetFractal();
                 OnPropertyChanged(nameof(IterationsCount));
             }
         }
