@@ -13,7 +13,7 @@ namespace WPF_TestProject2.Models
         public int RecursionsCount { get; set; }
         public OrientationType SelectedOrientationType { get; set; }
         public int Scale { get; set; }
-        public int RenderTime { get; set; }
+        public float RenderTime { get; set; }
 
         public DragonCurveFractalModel(FractalType fType, int recCount, OrientationType oType, int scale, int renderTime)
         {

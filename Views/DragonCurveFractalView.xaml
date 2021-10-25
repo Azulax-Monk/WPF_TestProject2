@@ -109,9 +109,9 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <Slider Grid.Row="0" x:Name="Slider" Width="100" Value="0.5" Minimum="0.5" Maximum="2.0"
+                <Label Grid.Row="0">Scale (%):</Label>
+                <Slider Grid.Row="1" x:Name="Slider" Width="100" Value="0.5" Minimum="0.5" Maximum="2.0"
                         LargeChange="0.5" SmallChange="0.1" VerticalAlignment="Center" IsSnapToTickEnabled="True" TickFrequency="0.1" />
-                <TextBox Grid.Row="1" Background="White" Text="{Binding Scale}"></TextBox>
             </Grid>
             <Grid Grid.Row="5" Margin="20, 5">
                 <Grid.RowDefinitions>

@@ -15,6 +15,7 @@ namespace WPF_TestProject2.Classes
         private List<Point> _edgeEnds;
         public int EdgeCount { get; private set; }
         public int Level { get; private set; }
+        public OrientationType Orientation { get; set; }
 
         public KochSnowflakeFractal()
         {

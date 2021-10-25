@@ -22,6 +22,7 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </UserControl.Resources>
+    
     <Grid Background="#ECECEC">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>

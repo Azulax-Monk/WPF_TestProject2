@@ -8,9 +8,9 @@ namespace WPF_TestProject2.Classes
 {
     enum OrientationType
     {
-        UP,
-        DOWN,
-        RIGHT,
-        LEFT
+        UP = 0,
+        DOWN = 180,
+        RIGHT = 90,
+        LEFT = 270
     }
 }

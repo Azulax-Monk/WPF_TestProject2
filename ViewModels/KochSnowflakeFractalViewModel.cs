@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -28,7 +29,10 @@ namespace WPF_TestProject2.ViewModels
             KochSnowflakeFractalModel = new KochSnowflakeFractalModel();
 
             _navigationStore = navigationStore;
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             _fractalBmp = GetFractal();
+            RenderTime = sw.ElapsedMilliseconds / 1000.0f;
         }
 
         public WriteableBitmap GetFractal()
@@ -94,6 +98,7 @@ namespace WPF_TestProject2.ViewModels
             set
             {
                 KochSnowflakeFractalModel.SelectedOrientationType = value;
+                FractalBmp = GraphicsUtils.RotateImage(FractalBmp, (float)KochSnowflakeFractalModel.SelectedOrientationType);
                 OnPropertyChanged(nameof(SelectedOrientationType));
             }
         }
@@ -104,7 +109,10 @@ namespace WPF_TestProject2.ViewModels
             set
             {
                 KochSnowflakeFractalModel.IterationsCount = value;
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
                 FractalBmp = GetFractal();
+                RenderTime = sw.ElapsedMilliseconds / 1000.0f;
                 OnPropertyChanged(nameof(IterationsCount));
             }
         }
@@ -119,7 +127,7 @@ namespace WPF_TestProject2.ViewModels
             }
         }
 
-        public int RenderTime
+        public float RenderTime
         {
             get { return KochSnowflakeFractalModel.RenderTime; }
             set

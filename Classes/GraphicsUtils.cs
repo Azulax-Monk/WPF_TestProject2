@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace WPF_TestProject2.Classes
 {
@@ -127,6 +128,11 @@ namespace WPF_TestProject2.Classes
            
 
             return new WriteableBitmap(bitmapSource);
+        }
+
+        public static WriteableBitmap RotateImage(WriteableBitmap bmp, float angle)
+        {
+            return new WriteableBitmap(new TransformedBitmap(bmp, new RotateTransform(angle)));
         }
     }
 }

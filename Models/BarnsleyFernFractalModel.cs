@@ -20,7 +20,7 @@ namespace WPF_TestProject2.Models
         public ObservableCollection<double> E { get; set; }
         public ObservableCollection<double> F { get; set; }
         public int Scale { get; set; }
-        public int RenderTime { get; set; }
+        public float RenderTime { get; set; }
         
 
         public BarnsleyFernFractalModel()
