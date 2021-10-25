@@ -10,12 +10,12 @@ namespace WPF_TestProject2.Classes
 {
     class BarnsleyFernFractal
     {
-        private MatrixUtils _matrixUtils;
+       
         private BarnsleyFernFractalModel _fractalModel;
         private int[] _probabilitiesRange;
         public BarnsleyFernFractal(BarnsleyFernFractalModel fractalModel)
         {
-            _matrixUtils = new MatrixUtils();
+           
             _fractalModel = fractalModel;
             _probabilitiesRange = CreateProbabilitiesRange();
         }

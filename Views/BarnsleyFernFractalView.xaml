@@ -46,10 +46,15 @@
 
             </Grid>
             <Grid Grid.Row="1" Background="#CFE1B9" Margin="10, 5">
-                <Image x:Name="Fractal" Source="{Binding FractalBmp}" />
+                <Image x:Name="Fractal" Source="{Binding FractalBmp}" Stretch="None">
+                    <Image.LayoutTransform>
+                        <ScaleTransform CenterX="0" CenterY="0" ScaleX="{Binding Path= Value, ElementName=Slider, Mode=Default}"
+                                        ScaleY="{Binding Path=Value, ElementName=Slider, Mode=Default}"/>
+                    </Image.LayoutTransform>
+                </Image>
+             
             </Grid>
         </Grid>
-
         <Grid Grid.Column="1" Background="#CFE1B9">
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -193,7 +198,8 @@
                     <Label Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,112.4,0.4">Scale (%):</Label>
                     <Button Grid.Column="2" Background="White" Height="20" Command ="{Binding SubmitCommand}" Margin="0.4,3,0.4,3.4" >Submit</Button>
                 </Grid>
-                <TextBox Grid.Row="1" Background="White" Text="{Binding Scale}"></TextBox>
+                <Slider Grid.Row="1" x:Name="Slider" Width="100" Value="0.5" Minimum="0.5" Maximum="2.0"
+                        LargeChange="0.5" SmallChange="0.1" VerticalAlignment="Center" IsSnapToTickEnabled="True" TickFrequency="0.1" />
             </Grid>
             <Grid Grid.Row="4" Margin="20, 2">
                 <Grid.RowDefinitions>
