@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WPF_TestProject2.Classes
 {
-    class KochSnowflakeFractal
+    class DragonCurveFracral
     {
         private FractalGenerator _fGen;
         private FractalInitiator _fInit;
@@ -16,26 +16,23 @@ namespace WPF_TestProject2.Classes
         public int EdgeCount { get; private set; }
         public int Level { get; private set; }
 
-        public KochSnowflakeFractal()
+        public DragonCurveFracral()
         {
             _fGen = new FractalGenerator();
             _fInit = new FractalInitiator();
             _edgeStarts = new List<Point>();
             _edgeEnds = new List<Point>();
-            Level = 4;
+            Level = 12;
             EdgeCount = 0;
-            
-            _fInit.AddVertex(new Point(351, -27)); //120, 340
-            _fInit.AddVertex(new Point(-243, 81)); //200, 40
-            _fInit.AddVertex(new Point(-81, -243)); //280, 340
 
-            _fGen.AddNode(0);
-            _fGen.AddNode(60);
-            _fGen.AddNode(-120);
-            _fGen.AddNode(60);
+            _fInit.AddVertex(new Point(50, 200)); 
+            _fInit.AddVertex(new Point(400, 200));
+
+            _fGen.AddNode(45);
+            _fGen.AddNode(-90);
         }
 
-        public KochSnowflakeFractal(FractalGenerator fGen, FractalInitiator fInit, int level)
+        public DragonCurveFracral(FractalGenerator fGen, FractalInitiator fInit, int level)
         {
             _edgeStarts = new List<Point>();
             _edgeEnds = new List<Point>();
@@ -47,27 +44,27 @@ namespace WPF_TestProject2.Classes
 
         public void Run()
         {
-            Tuple<Point, Point> edgeTmp = new Tuple<Point, Point>(new Point(-1, -1), new Point(-1, -1));            
-            for (int i = 0; i < _fInit.EdgeCount; ++i)
-            {
-                edgeTmp = _fInit.GetEdge(i);
-                if (edgeTmp != null)
-                    Itterate(edgeTmp.Item1, edgeTmp.Item2, Level);
-            }
+            Tuple<Point, Point> edge = _fInit.GetEdge(0);
+
+            Itterate(edge.Item1, edge.Item2, Level, 1); 
         }
 
-        private void Itterate(Point p1, Point p2, int level)
+        private void Itterate(Point p1, Point p2, int level, int sign)
         {
             level--;
 
+            int sign2 = -1;
             List<Point> edgeStartsTmp = new List<Point>();
             List<Point> edgeEndsTmp = new List<Point>();
             Tuple<Point, Point> edgeTmp = new Tuple<Point, Point>(new Point(-1, -1), new Point(-1, -1));
 
+            // Setup generator and call it
             _fGen.SetStartPoint(p1);
             _fGen.SetEndPoint(p2);
+            _fGen.SetSign(sign);
             _fGen.Compute();
 
+            // Retrive all generated edges
             for (int i = 0; i < _fGen.EdgeCount; ++i)
             {
                 edgeTmp = _fGen.GetEdge(i);
@@ -88,7 +85,8 @@ namespace WPF_TestProject2.Classes
                 }
                 else
                 {
-                    Itterate(edgeStartsTmp[i], edgeEndsTmp[i], level);
+                    Itterate(edgeStartsTmp[i], edgeEndsTmp[i], level, sign2);
+                    sign2 *= -1;
                 }
             }
         }

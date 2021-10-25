@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Media.Imaging;
-using System.Windows.Media;
 
 namespace WPF_TestProject2.Classes
 {
@@ -60,28 +59,25 @@ namespace WPF_TestProject2.Classes
 
         public static Point GetEndpoint(double angle, Point start, float lenght)
         {
-            double radians = (Math.PI / 180) * angle;
-            double xOffset = (lenght * Math.Cos(radians));
-            double yOffset = (lenght * Math.Sin(radians));
-            double x2 = start.X + xOffset;
-            double y2 = start.Y + yOffset;
+            double radians = Math.PI / 180 * angle;
+            double x2 = start.X + (lenght * Math.Cos(radians));
+            double y2 = start.Y - (lenght * Math.Sin(radians));
 
             return new Point((int)Math.Round(x2), (int)Math.Round(y2));
         }
 
-        // returns 1 when arc = 0 ????????????
         public static float GetAngle(Point p1, Point p2)
         {
             Point c = new Point(p2.X, p1.Y);
             float leg = GetLength(p1, c);
             float hupotenuse = GetLength(p1, p2);
-            float angle = (float)Math.Acos(Math.Cos(leg / hupotenuse));
+            float angle = (float)Math.Acos(leg / hupotenuse) * 180.0f / (float)Math.PI;
 
-            if (p2.X >= p1.X && p2.Y >= p1.Y)
+            if (p2.X >= p1.X && p2.Y <= p1.Y)
                 angle = angle;
-            else if (p2.X < p1.X && p2.Y >= p1.Y)
+            else if (p2.X < p1.X && p2.Y <= p1.Y)
                 angle = 180 - angle;
-            else if (p2.X <= p1.X && p2.Y < p1.Y)
+            else if (p2.X <= p1.X && p2.Y > p1.Y)
                 angle = 180 + angle;
             else if (p2.X > p1.X && p2.Y > p1.Y)
                 angle = 0 - angle;

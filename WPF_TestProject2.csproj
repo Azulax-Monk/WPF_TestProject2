@@ -58,6 +58,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Classes\BarnsleyFernFractal.cs" />
+    <Compile Include="Classes\DragonCurveFracral.cs" />
     <Compile Include="Classes\FractalGenerator.cs" />
     <Compile Include="Classes\FractalInitiator.cs" />
     <Compile Include="Classes\FractalType.cs" />

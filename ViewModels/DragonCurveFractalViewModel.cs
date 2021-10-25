@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using WPF_TestProject2.Classes;
 using WPF_TestProject2.Commands;
 using WPF_TestProject2.Models;
@@ -15,12 +17,53 @@ namespace WPF_TestProject2.ViewModels
     {
         private readonly NavigationStore _navigationStore;
 
+        private System.Windows.Media.Imaging.WriteableBitmap _fractalBmp;
+
         public DragonCurveFractalModel DragonCurveFractalModel;
 
         public DragonCurveFractalViewModel(NavigationStore navigationStore)
         {
-            _navigationStore = navigationStore;
             DragonCurveFractalModel = new DragonCurveFractalModel();
+
+            _navigationStore = navigationStore;
+            _fractalBmp = GetFractal();
+        }
+
+        private WriteableBitmap GetFractal()
+        {
+            Bitmap bmp = new Bitmap(750, 650);
+            Point center = new Point(100, 200);
+
+            FractalGenerator fGen = new FractalGenerator();
+            FractalInitiator fInit = new FractalInitiator();
+
+            fInit.AddVertex(new Point(50, 200));
+            fInit.AddVertex(new Point(400, 200));
+
+            fGen.AddNode(45);
+            fGen.AddNode(-90);
+
+            DragonCurveFracral dragonCurve = new DragonCurveFracral(fGen, fInit, RecursionsCount);
+            dragonCurve.Run();
+            for (int i = 0; i < dragonCurve.EdgeCount; ++i)
+            {
+                Tuple<Point, Point> edge = dragonCurve.GetEdge(i);
+                Point start = new Point(edge.Item1.X + center.X, edge.Item1.Y + center.Y);
+                Point end = new Point(edge.Item2.X + center.X, edge.Item2.Y + center.Y);
+                GraphicsUtils.DrawLine(bmp, GraphicsUtils.GetPointsOnLine(start, end), System.Drawing.Color.White);
+            }
+
+            return GraphicsUtils.ConvertToWriteableBitmap(bmp);
+        }
+
+        public System.Windows.Media.Imaging.WriteableBitmap FractalBmp
+        {
+            get { return _fractalBmp; }
+            set 
+            {
+                _fractalBmp = value;
+                OnPropertyChanged(nameof(FractalBmp));
+            }
         }
 
         public FractalType SelectedFractalType
@@ -54,6 +97,7 @@ namespace WPF_TestProject2.ViewModels
             set
             {
                 DragonCurveFractalModel.RecursionsCount = value;
+                FractalBmp = GetFractal();
                 OnPropertyChanged(nameof(RecursionsCount));
             }
         }

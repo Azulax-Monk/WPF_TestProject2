@@ -14,6 +14,7 @@ namespace WPF_TestProject2.Classes
         private List<Point> _endPoints;
         private Point _start;
         private Point _end;
+        private int _sign;
         public int EdgeCount { get; private set; }
 
         public FractalGenerator()
@@ -24,6 +25,7 @@ namespace WPF_TestProject2.Classes
             _nodeAngles = new List<float>();
             _startPoints = new List<Point>();
             _endPoints = new List<Point>();
+            _sign = 1;
         }
 
         public void SetStartPoint(Point p)
@@ -39,7 +41,18 @@ namespace WPF_TestProject2.Classes
         public void AddNode(float angle)
         {
             _nodeAngles.Add(angle);
-            EdgeCount = 2 + _nodeAngles.Count;
+            EdgeCount = _nodeAngles.Count;
+        }
+
+        public bool SetSign(int sign)
+        {
+            if (sign == 1 || sign == -1)
+            {
+                _sign = sign;
+                return true;
+            }
+            else
+                return false;
         }
 
         public Tuple<Point, Point> GetEdge(int index)
@@ -56,47 +69,42 @@ namespace WPF_TestProject2.Classes
             _startPoints.Clear();
             _endPoints.Clear();
 
-            _startPoints.Add(_start);
-
-            if (EdgeCount == 1)
+            if (EdgeCount <= 1)
             {
+                _startPoints.Add(_start);
                 _endPoints.Add(_end);
             }
             else 
             {
                 // Compute edge length (distance from start to end = 1)
                 // Compute number of segments, we divide into
-                float segmentCount = 2.0f;
+                float lengthMultiplier = 0.0f;
                 float cumulativeAngle = 0.0f;
                 foreach(float i in _nodeAngles)
                 {
                     cumulativeAngle += i;
-                    segmentCount += (float)Math.Abs(Math.Cos(cumulativeAngle * (Math.PI / 180.0f)));
+                    lengthMultiplier += (float)Math.Abs(Math.Cos(cumulativeAngle * (Math.PI / 180.0f)));
                 }
 
-                float initLenght = (float)Math.Sqrt(Math.Pow((_end.X - _start.X), 2.0) +
-                    Math.Pow((_end.Y - _start.Y), 2.0));
+                float initLenght = (float)Math.Sqrt(Math.Pow(_end.X - _start.X, 2.0) +
+                    Math.Pow(_end.Y - _start.Y, 2.0));
 
-                float edgeLength = initLenght / segmentCount;
+                float edgeLength = initLenght / lengthMultiplier;
 
-                // Compute the first edge
+                // Look at the first edge
                 float angle = GraphicsUtils.GetAngle(_start, _end);
-                Point edgeEnd = GraphicsUtils.GetEndpoint(angle, _start, edgeLength);
-                _endPoints.Add(edgeEnd);
 
                 // Loop through each node and find appropriate edge
-                Point startTmp = edgeEnd, endTmp = new Point(-1, -1);
+                Point startTmp = _start, endTmp = new Point(-1, -1);
+                float sightAngle = angle;
                 foreach (float currentAngle in _nodeAngles)
                 {
                     _startPoints.Add(startTmp);
-                    endTmp = GraphicsUtils.GetEndpoint(currentAngle, startTmp, edgeLength);
+                    sightAngle += _sign * currentAngle;
+                    endTmp = GraphicsUtils.GetEndpoint(sightAngle, startTmp, edgeLength);
                     _endPoints.Add(endTmp);
                     startTmp = endTmp;
                 }
-
-                // Compute last edge
-                _startPoints.Add(endTmp);
-                _endPoints.Add(_end);
             }
 
             return true;
