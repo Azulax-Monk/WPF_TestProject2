@@ -124,6 +124,7 @@ namespace WPF_TestProject2.Classes
                 System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
                 bmp.GetHbitmap(), IntPtr.Zero, System.Windows.Int32Rect.Empty,
             BitmapSizeOptions.FromEmptyOptions());
+           
 
             return new WriteableBitmap(bitmapSource);
         }
