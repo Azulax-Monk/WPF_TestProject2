@@ -24,7 +24,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Button Grid.Row="1" x:Name="FractalsButton" Content="Fractals" Command="{Binding NavigateDragonCurveFractalCommand}" Margin="20, 10" Background="#87986A"></Button>
+            <Button Grid.Row="1" x:Name="FractalsButton" Content="Fractals" Command="{Binding NavigateDragonCurveFractalCommand}" Margin="20, 10" Background="#87986A" ></Button>
             <Button Grid.Row="2" x:Name="AffineTransformationsButton" Content="Affine Transformations" Margin="20, 10" Background="#87986A"></Button>
             <Button Grid.Row="3" x:Name="ColorModelsButton" Content="Color Models" Margin="20, 10" Background="#87986A"></Button>
         </Grid>

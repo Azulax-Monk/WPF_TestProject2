@@ -24,5 +24,12 @@ namespace WPF_TestProject2.Views
         {
             InitializeComponent();
         }
+
+        private void OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox text = sender as TextBox;
+            BindingOperations.GetBindingExpression(text, TextBox.TextProperty).UpdateSource();
+        }
+
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Drawing;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -8,8 +10,9 @@ using WPF_TestProject2.Models;
 using WPF_TestProject2.Stores;
 namespace WPF_TestProject2.ViewModels
 {
-    class BarnsleyFernFractalViewModel: ViewModelBase
+    class BarnsleyFernFractalViewModel : ViewModelBase
     {
+
         private System.Windows.Media.Imaging.WriteableBitmap _fractalBmp;
         private readonly NavigationStore _navigationStore;
         public BarnsleyFernFractalModel BarnsleyFernFractalModel;
@@ -21,6 +24,7 @@ namespace WPF_TestProject2.ViewModels
             _fractalBmp = GetFractal();
         }
 
+
         private WriteableBitmap GetFractal()
         {
             Bitmap bmp = new Bitmap(600, 600);
@@ -29,18 +33,18 @@ namespace WPF_TestProject2.ViewModels
             var r = new Random();
             int randomNum;
             for (int count = 0; count < 100000; count++)
-            {              
+            {
                 randomNum = r.Next(100);
                 point = fractal.GetNextPoint(point, randomNum);
                 int x = (int)(300 + 60 * point.Item1);
-                int y = (int)((600 - 60 * point.Item2)-100);
+                int y = (int)((600 - 60 * point.Item2) - 100);
                 if (!GraphicsUtils.CheckIfPointInRange(bmp, new Point(x, y)))
                     continue;
                 try
                 {
                     bmp.SetPixel(x, y, Color.Black);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     //display this on form
                     Console.WriteLine($"{ex} occured.");
@@ -52,6 +56,11 @@ namespace WPF_TestProject2.ViewModels
         public System.Windows.Media.Imaging.WriteableBitmap FractalBmp
         {
             get { return _fractalBmp; }
+            set
+            {
+                _fractalBmp = value;
+                OnPropertyChanged(nameof(FractalBmp));
+            }
         }
 
         public FractalType SelectedFractalType
@@ -68,7 +77,7 @@ namespace WPF_TestProject2.ViewModels
                 OnPropertyChanged(nameof(SelectedFractalType));
             }
         }
-        public double[] Probabilities
+        public ObservableCollection<double> Probabilities
         {
             get { return BarnsleyFernFractalModel.Probabilites; }
             set
@@ -78,7 +87,7 @@ namespace WPF_TestProject2.ViewModels
             }
         }
 
-        public double[] A
+        public ObservableCollection<double> A
         {
             get { return BarnsleyFernFractalModel.A; }
             set
@@ -87,7 +96,7 @@ namespace WPF_TestProject2.ViewModels
                 OnPropertyChanged(nameof(A));
             }
         }
-        public double[] B
+        public ObservableCollection<double> B
         {
             get { return BarnsleyFernFractalModel.B; }
             set
@@ -96,7 +105,7 @@ namespace WPF_TestProject2.ViewModels
                 OnPropertyChanged(nameof(B));
             }
         }
-        public double[] C
+        public ObservableCollection<double> C
         {
             get { return BarnsleyFernFractalModel.C; }
             set
@@ -105,7 +114,7 @@ namespace WPF_TestProject2.ViewModels
                 OnPropertyChanged(nameof(C));
             }
         }
-        public double[] D
+        public ObservableCollection<double> D
         {
             get { return BarnsleyFernFractalModel.D; }
             set
@@ -114,7 +123,7 @@ namespace WPF_TestProject2.ViewModels
                 OnPropertyChanged(nameof(D));
             }
         }
-        public double[] E
+        public ObservableCollection<double> E
         {
             get { return BarnsleyFernFractalModel.E; }
             set
@@ -124,7 +133,7 @@ namespace WPF_TestProject2.ViewModels
             }
         }
 
-        public double[] F
+        public ObservableCollection<double> F
         {
             get { return BarnsleyFernFractalModel.F; }
             set
@@ -211,6 +220,20 @@ namespace WPF_TestProject2.ViewModels
         public void NavigateDragonCurveFractal()
         {
             _navigationStore.CurrentViewModel = new DragonCurveFractalViewModel(_navigationStore);
+        }
+
+        private Command _submitCommand;
+        public Command SubmitCommand
+        {
+            get
+            {
+                return _submitCommand ??
+                    (_submitCommand = new Command(obj =>
+                    {
+                        Console.WriteLine("sff");
+                        FractalBmp = GetFractal();
+                    }));
+            }
         }
     }
 }

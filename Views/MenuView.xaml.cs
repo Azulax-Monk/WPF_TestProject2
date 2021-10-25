@@ -24,5 +24,6 @@ namespace WPF_TestProject2.Views
         {
             InitializeComponent();
         }
+
     }
 }

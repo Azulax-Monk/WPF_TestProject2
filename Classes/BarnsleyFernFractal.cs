@@ -49,8 +49,8 @@ namespace WPF_TestProject2.Classes
 
         private int[] CreateProbabilitiesRange()
         {
-            double[] probabilities = _fractalModel.Probabilites;
-            int size = probabilities.Length;
+            List<double> probabilities = _fractalModel.Probabilites.ToList();
+            int size = probabilities.Count;
             int[] probabilitiesRange = new int[size];
             for(int i = 0; i < size; i++)
             {
