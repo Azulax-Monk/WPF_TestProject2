@@ -22,7 +22,7 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </UserControl.Resources>
-    
+
     <Grid Background="#ECECEC">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -49,13 +49,13 @@
             <Grid Grid.Row="1" Background="#CFE1B9" Margin="10, 5">
                 <ScrollViewer x:Name="scrollViewer" ScrollViewer.VerticalScrollBarVisibility="Hidden" 
                               ScrollViewer.HorizontalScrollBarVisibility="Visible" >
-                <Image x:Name="Fractal" Source="{Binding FractalBmp}" Stretch="None">
-                    <Image.LayoutTransform>
-                        <ScaleTransform CenterX="0" CenterY="0" ScaleX="{Binding Path= Value, ElementName=Slider, Mode=Default}"
+                    <Image x:Name="Fractal" Source="{Binding FractalBmp}" Stretch="None">
+                        <Image.LayoutTransform>
+                            <ScaleTransform CenterX="0" CenterY="0" ScaleX="{Binding Path= Value, ElementName=Slider, Mode=Default}"
                                         ScaleY="{Binding Path=Value, ElementName=Slider, Mode=Default}"/>
-                    </Image.LayoutTransform>
-                </Image>
-                    </ScrollViewer>
+                        </Image.LayoutTransform>
+                    </Image>
+                </ScrollViewer>
             </Grid>
         </Grid>
         <Grid Grid.Column="1" Background="#CFE1B9">
@@ -80,7 +80,7 @@
                 </ComboBox>
             </Grid>
 
-            <Grid Grid.Row="1" Margin="20,2">
+            <Grid Grid.Row="1" Margin="20,3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -106,60 +106,60 @@
                 <Label Grid.Column="5" Grid.Row="0">f:</Label>
 
                 <TextBox Grid.Column="0" Grid.Row="1" Background="White" Height="20" Width="30" HorizontalAlignment="Center"
-                         Text="{Binding A[0], UpdateSourceTrigger=LostFocus}" ></TextBox>
+                         Text="{Binding A[0], UpdateSourceTrigger=LostFocus}" FontSize="10" ></TextBox>
                 <TextBox Grid.Column="1" Grid.Row="1" Background="White" Height="20" Width="30" HorizontalAlignment="Center"
-                         Text="{Binding B[0], UpdateSourceTrigger=LostFocus}"></TextBox>
+                         Text="{Binding B[0], UpdateSourceTrigger=LostFocus}" FontSize="10"></TextBox>
                 <TextBox Grid.Column="2" Grid.Row="1" Background="White" Height="20" Width="30" HorizontalAlignment="Center"
-                          Text="{Binding C[0]}"></TextBox>
+                          Text="{Binding C[0]}" FontSize="10"></TextBox>
                 <TextBox Grid.Column="3" Grid.Row="1" Background="White" Height="20" Width="30" HorizontalAlignment="Center"
-                          Text="{Binding D[0]}"></TextBox>
+                          Text="{Binding D[0]}" FontSize="10"></TextBox>
                 <TextBox Grid.Column="4" Grid.Row="1" Background="White" Height="20" Width="30" HorizontalAlignment="Center"
-                          Text="{Binding E[0]}"></TextBox>
+                          Text="{Binding E[0]}" FontSize="10"></TextBox>
                 <TextBox Grid.Column="5" Grid.Row="1" Background="White" Height="20" Width="30" HorizontalAlignment="Center"
-                          Text="{Binding F[0]}"></TextBox>
+                          Text="{Binding F[0]}" FontSize="10"></TextBox>
 
                 <TextBox Grid.Column="0" Grid.Row="2" Background="White" Height="20" Width="30" HorizontalAlignment="Center"
-                          Text="{Binding A[1]}"></TextBox>
+                          Text="{Binding A[1]}" FontSize="10"></TextBox>
                 <TextBox Grid.Column="1" Grid.Row="2" Background="White" Height="20" Width="30" HorizontalAlignment="Center"
-                          Text="{Binding B[1]}"></TextBox>
+                          Text="{Binding B[1]}" FontSize="10"></TextBox>
                 <TextBox Grid.Column="2" Grid.Row="2" Background="White" Height="20" Width="30" HorizontalAlignment="Center"
-                          Text="{Binding C[1]}"></TextBox>
+                          Text="{Binding C[1]}" FontSize="10"></TextBox>
                 <TextBox Grid.Column="3" Grid.Row="2" Background="White" Height="20" Width="30" HorizontalAlignment="Center"
-                          Text="{Binding D[1]}"></TextBox>
+                          Text="{Binding D[1]}" FontSize="10"></TextBox>
                 <TextBox Grid.Column="4" Grid.Row="2" Background="White" Height="20" Width="30" HorizontalAlignment="Center"
-                          Text="{Binding E[1]}"></TextBox>
+                          Text="{Binding E[1]}" FontSize="10"></TextBox>
                 <TextBox Grid.Column="5" Grid.Row="2" Background="White" Height="20" Width="30" HorizontalAlignment="Center"
-                          Text="{Binding F[1]}"></TextBox>
+                          Text="{Binding F[1]}" FontSize="10"></TextBox>
 
                 <TextBox Grid.Column="0" Grid.Row="3" Background="White" Height="20" Width="30" HorizontalAlignment="Center"
-                          Text="{Binding A[2]}"></TextBox>
+                          Text="{Binding A[2]}" FontSize="10"></TextBox>
                 <TextBox Grid.Column="1" Grid.Row="3" Background="White" Height="20" Width="30" HorizontalAlignment="Center"
-                         Text="{Binding B[2]}"></TextBox>
+                         Text="{Binding B[2]}" FontSize="10"></TextBox>
                 <TextBox Grid.Column="2" Grid.Row="3" Background="White" Height="20" Width="30" HorizontalAlignment="Center"
-                         Text="{Binding C[2]}"></TextBox>
+                         Text="{Binding C[2]}" FontSize="10"></TextBox>
                 <TextBox Grid.Column="3" Grid.Row="3" Background="White" Height="20" Width="30" HorizontalAlignment="Center"
-                         Text="{Binding D[2]}"></TextBox>
+                         Text="{Binding D[2]}" FontSize="10"></TextBox>
                 <TextBox Grid.Column="4" Grid.Row="3" Background="White" Height="20" Width="30" HorizontalAlignment="Center"
-                         Text="{Binding E[2]}"></TextBox>
+                         Text="{Binding E[2]}" FontSize="10"></TextBox>
                 <TextBox Grid.Column="5" Grid.Row="3" Background="White" Height="20" Width="30" HorizontalAlignment="Center"
-                         Text="{Binding F[2]}"></TextBox>
+                         Text="{Binding F[2]}" FontSize="10"></TextBox>
 
                 <TextBox Grid.Column="0" Grid.Row="4" Background="White" Height="20" Width="30" HorizontalAlignment="Center"
-                         Text="{Binding A[3]}"></TextBox>
+                         Text="{Binding A[3]}" FontSize="10"></TextBox>
                 <TextBox Grid.Column="1" Grid.Row="4" Background="White" Height="20" Width="30" HorizontalAlignment="Center"
-                         Text="{Binding B[3]}"></TextBox>
+                         Text="{Binding B[3]}" FontSize="10"></TextBox>
                 <TextBox Grid.Column="2" Grid.Row="4" Background="White" Height="20" Width="30" HorizontalAlignment="Center"
-                         Text="{Binding C[3]}"></TextBox>
+                         Text="{Binding C[3]}" FontSize="10"></TextBox>
                 <TextBox Grid.Column="3" Grid.Row="4" Background="White" Height="20" Width="30" HorizontalAlignment="Center"
-                         Text="{Binding D[3]}"></TextBox>
+                         Text="{Binding D[3]}" FontSize="10"></TextBox>
                 <TextBox Grid.Column="4" Grid.Row="4" Background="White" Height="20" Width="30" HorizontalAlignment="Center"
-                         Text="{Binding E[3]}"></TextBox>
+                         Text="{Binding E[3]}" FontSize="10"></TextBox>
                 <TextBox Grid.Column="5" Grid.Row="4" Background="White" Height="20" Width="30" HorizontalAlignment="Center"
-                         Text="{Binding F[3]}"></TextBox>
+                         Text="{Binding F[3]}" FontSize="10"></TextBox>
 
             </Grid>
 
-            <Grid Grid.Row="2" Margin="20,0">
+            <Grid Grid.Row="2" Margin="20,1">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -176,17 +176,17 @@
                 <Label Grid.Column="2" Grid.Row="0">p3:</Label>
                 <Label Grid.Column="3" Grid.Row="0">p4:</Label>
                 <TextBox Grid.Column="0" Grid.Row="1" Background="White" Height="20" Width="30"
-                     Text="{Binding Probabilities[0]}" HorizontalAlignment="Center" ></TextBox>
+                     Text="{Binding Probabilities[0]}" HorizontalAlignment="Center" FontSize="10" ></TextBox>
                 <TextBox Grid.Column="1" Grid.Row="1" Background="White" Height="20" Width="30"
-                         Text="{Binding Probabilities[1]}" HorizontalAlignment="Center"></TextBox>
+                         Text="{Binding Probabilities[1]}" HorizontalAlignment="Center" FontSize="10"></TextBox>
                 <TextBox Grid.Column="2" Grid.Row="1" Background="White" Height="20" Width="30"
-                         Text="{Binding Probabilities[2]}" HorizontalAlignment="Center"></TextBox>
+                         Text="{Binding Probabilities[2]}" HorizontalAlignment="Center" FontSize="10"></TextBox>
                 <TextBox Grid.Column="3" Grid.Row="1" Background="White" Height="20"
-                         Text="{Binding Probabilities[3]}" Width="30" HorizontalAlignment="Center">
+                         Text="{Binding Probabilities[3]}" Width="30" HorizontalAlignment="Center" FontSize="10">
                 </TextBox>
             </Grid>
 
-            <Grid Grid.Row="3" Margin="20, 2">
+            <Grid Grid.Row="3" Margin="20, 1">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -199,12 +199,12 @@
                         <ColumnDefinition Width="113*"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,112.4,0.4">Scale (%):</Label>
-                    <Button Grid.Column="2" Background="White" Height="20" Command ="{Binding SubmitCommand}" Margin="0.4,3,0.4,3.4" >Submit</Button>
+                    <Button Grid.Column="2" Background="White" Height="20" Command ="{Binding SubmitCommand}" Margin="0.4,3,0.4,3.4" Width="74" >Submit</Button>
                 </Grid>
                 <Slider Grid.Row="1" x:Name="Slider" Width="100" Value="0.5" Minimum="0.5" Maximum="2.0"
                         LargeChange="0.5" SmallChange="0.1" VerticalAlignment="Center"  IsSnapToTickEnabled="True" TickFrequency="0.1" />
             </Grid>
-            <Grid Grid.Row="4" Margin="20, 2">
+            <Grid Grid.Row="4" Margin="20, 3">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>

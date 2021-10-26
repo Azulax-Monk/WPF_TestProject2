@@ -92,7 +92,7 @@
                 </Grid.RowDefinitions>
 
                 <Label Grid.Row="0">Number of recursions:</Label>
-                <TextBox Grid.Row="1" Background="White" Text="{Binding RecursionsCount}"></TextBox>
+                <TextBox Grid.Row="1" Background="White" Text="{Binding RecursionsCount, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             </Grid>
             <Grid Grid.Row="2" Margin="20, 5">
                 <Grid.RowDefinitions>

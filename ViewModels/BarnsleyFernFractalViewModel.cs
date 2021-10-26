@@ -22,6 +22,7 @@ namespace WPF_TestProject2.ViewModels
         {
             _navigationStore = navigationStore;
             BarnsleyFernFractalModel = new BarnsleyFernFractalModel();
+            FractalBmp = GetFractal();
         }
 
 
@@ -37,7 +38,7 @@ namespace WPF_TestProject2.ViewModels
                 randomNum = r.Next(100);
                 point = fractal.GetNextPoint(point, randomNum);
                 int x = (int)(300 + 60 * point.Item1);
-                int y = (int)((600 - 60 * point.Item2) - 100);
+                int y = (int)(600 - 60 * point.Item2 - 100);
                 if (!GraphicsUtils.CheckIfPointInRange(bmp, new Point(x, y)))
                     continue;
                 try

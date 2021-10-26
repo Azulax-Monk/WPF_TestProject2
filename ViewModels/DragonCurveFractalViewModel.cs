@@ -56,7 +56,7 @@ namespace WPF_TestProject2.ViewModels
                 Point start = new Point(edge.Item1.X + center.X, edge.Item1.Y + center.Y);
                 Point end = new Point(edge.Item2.X + center.X, edge.Item2.Y + center.Y);
                 if (GraphicsUtils.IsFit(start, sWidth, sHeight) && GraphicsUtils.IsFit(end, sWidth, sHeight))
-                    GraphicsUtils.DrawLine(bmp, GraphicsUtils.GetPointsOnLine(start, end), System.Drawing.Color.White);
+                    GraphicsUtils.DrawLine(bmp, GraphicsUtils.GetPointsOnLine(start, end), System.Drawing.Color.Black);
             }
 
             return GraphicsUtils.ConvertToWriteableBitmap(bmp);

@@ -92,7 +92,7 @@
                 </Grid.RowDefinitions>
 
                 <Label Grid.Row="0">Number of iterations:</Label>
-                <TextBox Grid.Row="1" Background="White" Text="{Binding IterationsCount}"></TextBox>
+                <TextBox Grid.Row="1" Background="White" Text="{Binding IterationsCount, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             </Grid>
             <Grid Grid.Row="2" Margin="20, 5">
                 <Grid.RowDefinitions>
