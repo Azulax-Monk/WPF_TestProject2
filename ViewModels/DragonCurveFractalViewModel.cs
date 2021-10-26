@@ -194,6 +194,50 @@ namespace WPF_TestProject2.ViewModels
         {
             _navigationStore.CurrentViewModel = new BarnsleyFernFractalViewModel(_navigationStore);
         }
+
+        ///
+        ///
+        ///
+        private DelegateCommand _copyImageToClipboardCommand;
+
+        public ICommand CopyImageToClipboardCommand
+        {
+            get
+            {
+                if (_copyImageToClipboardCommand == null)
+                {
+                    _copyImageToClipboardCommand = new DelegateCommand(() => CopyImageToClipboard(FractalBmp));
+                }
+                return _copyImageToClipboardCommand;
+            }
+        }
+
+        public void CopyImageToClipboard(WriteableBitmap bmp)
+        {
+            System.Windows.Clipboard.SetImage(bmp);
+        }
+
+        /// <summary>
+        /// reset state command
+        /// </summary>
+        private DelegateCommand _resetCommand;
+
+        public ICommand ResetCommand
+        {
+            get
+            {
+                if (_resetCommand == null)
+                {
+                    _resetCommand = new DelegateCommand(Reset);
+                }
+                return _resetCommand;
+            }
+        }
+
+        public void Reset()
+        {
+            _navigationStore.CurrentViewModel = new DragonCurveFractalViewModel(_navigationStore);
+        }
         #endregion
     }
 }

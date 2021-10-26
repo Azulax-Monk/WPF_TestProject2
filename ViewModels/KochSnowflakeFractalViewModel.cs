@@ -192,7 +192,6 @@ namespace WPF_TestProject2.ViewModels
             {
                 if (_navigateBarnsleyFernFractalCommand == null)
                 {
-                    Console.WriteLine("Reached here");
                     _navigateBarnsleyFernFractalCommand = new DelegateCommand(NavigateBarnsleyFernFractal);
                 }
                 return _navigateBarnsleyFernFractalCommand;
@@ -202,6 +201,50 @@ namespace WPF_TestProject2.ViewModels
         public void NavigateBarnsleyFernFractal()
         {
             _navigationStore.CurrentViewModel = new BarnsleyFernFractalViewModel(_navigationStore);
+        }
+
+        /// <summary>
+        /// copy Fractal image to clipboard command
+        /// <summary>
+        private DelegateCommand _copyImageToClipboardCommand;
+
+        public ICommand CopyImageToClipboardCommand
+        {
+            get
+            {
+                if (_copyImageToClipboardCommand == null)
+                {
+                    _copyImageToClipboardCommand = new DelegateCommand(() => CopyImageToClipboard(FractalBmp));
+                }
+                return _copyImageToClipboardCommand;
+            }
+        }
+
+        public void CopyImageToClipboard(WriteableBitmap bmp)
+        {
+            System.Windows.Clipboard.SetImage(bmp);
+        }
+
+        /// <summary>
+        /// reset state command
+        /// </summary>
+        private DelegateCommand _resetCommand;
+
+        public ICommand ResetCommand
+        {
+            get
+            {
+                if (_resetCommand == null)
+                {
+                    _resetCommand = new DelegateCommand(Reset);
+                }
+                return _resetCommand;
+            }
+        }
+
+        public void Reset()
+        {
+            _navigationStore.CurrentViewModel = new KochSnowflakeFractalViewModel(_navigationStore);
         }
         #endregion
     }
