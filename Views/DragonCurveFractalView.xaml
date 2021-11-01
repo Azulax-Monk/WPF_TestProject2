@@ -107,6 +107,17 @@
                           SelectedItem="{Binding SelectedOrientationType}">
                 </ComboBox>
             </Grid>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="1" Command="{Binding IFSCommand}"  BorderThickness="1" BorderBrush="Black" Margin="15, 15" Background="#CFE1B9">
+                    IFS
+                </Button>
+            </Grid>
             <Grid Grid.Row="4" Margin="20, 5">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -136,9 +147,6 @@
 
                 <Button Grid.Column="0" Command="{Binding NavigateMenuCommand}" BorderThickness="1" BorderBrush="Black" Margin="5, 15" Background="#CFE1B9">
                     back
-                </Button>
-                <Button Grid.Column="1" BorderThickness="1" BorderBrush="Black" Margin="5, 15" Background="#CFE1B9">
-                    zoom
                 </Button>
                 <Button Grid.Column="2" Command="{Binding CopyImageToClipboardCommand}" BorderThickness="1" BorderBrush="Black" Margin="5, 15" Background="#CFE1B9">
                     copy

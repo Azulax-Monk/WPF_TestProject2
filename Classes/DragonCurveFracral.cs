@@ -43,14 +43,48 @@ namespace WPF_TestProject2.Classes
             EdgeCount = 0;
         }
 
+        public void RunIFS()
+        {
+            Tuple<Point, Point> edge = _fInit.GetEdge(0);
+
+            IterateIFS(edge.Item1, edge.Item2, Level);
+        }
+
+        private void IterateIFS(Point p1, Point p2, int level)
+        {
+            double angle = Math.Round(GraphicsUtils.GetAngle(p1, p2));
+            double angleRadians = Math.PI / 180 * angle;
+            float segLength = GraphicsUtils.GetLength(p1, p2);
+
+            AffineTransformation.AffineMatrix rule1 =
+                new AffineTransformation.AffineMatrix(1.0 / 2, 1.0 / 2, -1.0 / 2, 1.0 / 2, 0, 0); // 1.0 / 2, -1.0 / 2, 1.0 / 2, 1.0 / 2, 0, 0
+            AffineTransformation.AffineMatrix rule2 =
+                new AffineTransformation.AffineMatrix(-1.0 / 2, 1.0 / 2, -1.0 / 2, -1.0 / 2, segLength, 0); // -1.0 / 2, -1.0 / 2, 1.0 / 2, -1.0 / 2, segLength, 0
+
+            Point x1 = AffineTransformation.Transform(p2, p1, rule1);
+            Point x2 = AffineTransformation.Transform(p2, p1, rule2);
+
+            if (level < 1)
+            {
+                _edgeStarts.Add(p1);
+                _edgeEnds.Add(p2);
+                EdgeCount++;
+            }
+            else
+            {
+                IterateIFS(p1, x1, (level - 1));
+                IterateIFS(p2, x2, (level - 1));
+            }
+        }
+
         public void Run()
         {
             Tuple<Point, Point> edge = _fInit.GetEdge(0);
 
-            Itterate(edge.Item1, edge.Item2, Level, 1); 
+            Iterate(edge.Item1, edge.Item2, Level, 1); 
         }
 
-        private void Itterate(Point p1, Point p2, int level, int sign)
+        private void Iterate(Point p1, Point p2, int level, int sign)
         {
             level--;
 
@@ -86,7 +120,7 @@ namespace WPF_TestProject2.Classes
                 }
                 else
                 {
-                    Itterate(edgeStartsTmp[i], edgeEndsTmp[i], level, sign2);
+                    Iterate(edgeStartsTmp[i], edgeEndsTmp[i], level, sign2);
                     sign2 *= -1;
                 }
             }
