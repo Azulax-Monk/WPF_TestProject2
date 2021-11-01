@@ -72,6 +72,7 @@
     <Compile Include="Models\KochSnowflakeFractalModel.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="ViewModels\AffineTransformationsViewModel.cs" />
+    <Compile Include="ViewModels\InfoViewModel.cs" />
     <Compile Include="ViewModels\BarnsleyFernFractalViewModel.cs" />
     <Compile Include="ViewModels\DragonCurveFractalViewModel.cs" />
     <Compile Include="ViewModels\KochSnowflakeFractalViewModel.cs" />
@@ -86,6 +87,9 @@
     </Compile>
     <Compile Include="Views\DragonCurveFractalView.xaml.cs">
       <DependentUpon>DragonCurveFractalView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InfoView.xaml.cs">
+      <DependentUpon>InfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\KochSnowflakeFractalView.xaml.cs">
       <DependentUpon>KochSnowflakeFractalView.xaml</DependentUpon>
@@ -114,6 +118,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DragonCurveFractalView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -152,7 +160,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\BarnsleyFern.png" />
+    <Resource Include="Resources\DragonCurve.png" />
+    <Resource Include="Resources\KochSnowflake.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\MenuImage.png" />
   </ItemGroup>

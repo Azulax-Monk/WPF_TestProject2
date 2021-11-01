@@ -37,5 +37,41 @@ namespace WPF_TestProject2.Models
             Scale = 100;
             RenderTime = 0;
         }
+
+        public BarnsleyFernFractalModel(int i)
+        {
+            SelectedFractalType = FractalType.BARNSLEY_FERN;
+            switch (i) {
+                case 1:
+                    {
+                        Probabilites = new ObservableCollection<double> { 0.02, 0.84, 0.07, 0.07 };
+                        A = new ObservableCollection<double> { 0, 0.95, 0.035, -0.04 };
+                        B = new ObservableCollection<double> { 0, 0.005, -0.2, 0.2 };
+                        C = new ObservableCollection<double> { 0, -0.05, 0.16, 0.16 };
+                        D = new ObservableCollection<double> { 0.25, 0.93, 0.04, 0.04 };
+                        E = new ObservableCollection<double> { 0, -0.002, -0.09, 0.083 };
+                        F = new ObservableCollection<double> { -0.4, 0.5, 0.02, 0.12 };
+                        break;
+                    }
+
+                case 2:
+                    {
+                        Probabilites = new ObservableCollection<double> { 0.01, 0.85, 0.07, 0.07 };
+                        A = new ObservableCollection<double> { 0, 0.85, 0.2, -0.15 };
+                        B = new ObservableCollection<double> { 0, 0.004, -0.26, 0.28 };
+                        C = new ObservableCollection<double> { 0, -0.04, 0.23, 0.26 };
+                        D = new ObservableCollection<double> { 0.16, 0.85, 0.22, 0.24 };
+                        E = new ObservableCollection<double> { 0, 0, 0, 0 };
+                        F = new ObservableCollection<double> { 0, 1.6, 1.6, 0.44 };
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+        }
+            Scale = 100;
+            RenderTime = 0;
+        }
     }
 }

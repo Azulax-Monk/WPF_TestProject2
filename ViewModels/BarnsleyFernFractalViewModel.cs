@@ -16,12 +16,29 @@ namespace WPF_TestProject2.ViewModels
 
         private System.Windows.Media.Imaging.WriteableBitmap _fractalBmp;
         private readonly NavigationStore _navigationStore;
-        public BarnsleyFernFractalModel BarnsleyFernFractalModel;
-
+        private BarnsleyFernFractalModel _barnsleyFernFractalModel;
+        public BarnsleyFernFractalModel BarnsleyFernFractalModel
+        {
+            get { return _barnsleyFernFractalModel; }
+            set
+            {
+                _barnsleyFernFractalModel = value;
+                OnPropertyChanged(nameof(BarnsleyFernFractalModel));
+            }
+        }
         public BarnsleyFernFractalViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
-            BarnsleyFernFractalModel = new BarnsleyFernFractalModel();
+            _barnsleyFernFractalModel = new BarnsleyFernFractalModel();
+            FractalBmp = GetFractal();
+        }
+        public BarnsleyFernFractalViewModel(NavigationStore navigationStore, int option = 0)
+        {
+            _navigationStore = navigationStore;
+            if (option == 2)
+            {
+                _barnsleyFernFractalModel = new BarnsleyFernFractalModel(2);
+            }
             FractalBmp = GetFractal();
         }
 
@@ -38,7 +55,7 @@ namespace WPF_TestProject2.ViewModels
                 randomNum = r.Next(100);
                 point = fractal.GetNextPoint(point, randomNum);
                 int x = (int)(300 + 60 * point.Item1);
-                int y = (int)(600 - 60 * point.Item2 - 100);
+                int y = (int)(600 - 60 * point.Item2);
                 if (!GraphicsUtils.CheckIfPointInRange(bmp, new Point(x, y)))
                     continue;
                 try
@@ -238,11 +255,33 @@ namespace WPF_TestProject2.ViewModels
                 return _submitCommand ??
                     (_submitCommand = new Command(obj =>
                     {
-                        Console.WriteLine("sff");
                         Stopwatch sw = new Stopwatch();
                         sw.Start();
                         FractalBmp = GetFractal();
                         RenderTime = sw.ElapsedMilliseconds / 1000.0f;
+                    }));
+            }
+        }
+
+        private Command _changeModelCommand;
+        public Command ChangeModelCommand
+        {
+            get
+            {
+                return _changeModelCommand ??
+                    (_changeModelCommand = new Command(obj =>
+                    {
+                        string option = (string)obj;
+                        switch (option)
+                        {
+                            case "1":
+                                _navigationStore.CurrentViewModel = new BarnsleyFernFractalViewModel(_navigationStore);
+                                break;
+
+                            case "2":
+                                _navigationStore.CurrentViewModel = new BarnsleyFernFractalViewModel(_navigationStore, 2);
+                                break;
+                        }
                     }));
             }
         }
@@ -289,6 +328,28 @@ namespace WPF_TestProject2.ViewModels
         public void Reset()
         {
             _navigationStore.CurrentViewModel = new BarnsleyFernFractalViewModel(_navigationStore);
+        }
+        /////
+        /////
+        /////
+        ///
+        private DelegateCommand _navigateInfoPageCommand;
+        public ICommand NavigateInfoPageCommand
+        {
+            get
+            {
+                if (_navigateInfoPageCommand == null)
+                {
+                    Console.WriteLine("Reached here");
+                    _navigateInfoPageCommand = new DelegateCommand(NavigateInfoPage);
+                }
+                return _navigateInfoPageCommand;
+            }
+        }
+
+        public void NavigateInfoPage()
+        {
+            _navigationStore.CurrentViewModel = new InfoViewModel(_navigationStore, this);
         }
         #endregion
     }

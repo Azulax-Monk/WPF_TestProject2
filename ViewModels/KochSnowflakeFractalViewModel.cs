@@ -246,6 +246,28 @@ namespace WPF_TestProject2.ViewModels
         {
             _navigationStore.CurrentViewModel = new KochSnowflakeFractalViewModel(_navigationStore);
         }
+        /////
+        /////
+        /////
+        ///
+        private DelegateCommand _navigateInfoPageCommand;
+        public ICommand NavigateInfoPageCommand
+        {
+            get
+            {
+                if (_navigateInfoPageCommand == null)
+                {
+                    Console.WriteLine("Reached here");
+                    _navigateInfoPageCommand = new DelegateCommand(NavigateInfoPage);
+                }
+                return _navigateInfoPageCommand;
+            }
+        }
+
+        public void NavigateInfoPage()
+        {
+            _navigationStore.CurrentViewModel = new InfoViewModel(_navigationStore, this);
+        }
         #endregion
     }
 }
