@@ -97,6 +97,7 @@ namespace WPF_TestProject2.Classes
                 // Loop through each node and find appropriate edge
                 Point startTmp = _start, endTmp = new Point(-1, -1);
                 float sightAngle = angle;
+                Console.WriteLine("Angle: " + angle);
                 foreach (float currentAngle in _nodeAngles)
                 {
                     _startPoints.Add(startTmp);
@@ -104,6 +105,7 @@ namespace WPF_TestProject2.Classes
                     endTmp = GraphicsUtils.GetEndpoint(sightAngle, startTmp, edgeLength);
                     _endPoints.Add(endTmp);
                     startTmp = endTmp;
+                    Console.WriteLine("Angle: " + angle);
                 }
             }
 

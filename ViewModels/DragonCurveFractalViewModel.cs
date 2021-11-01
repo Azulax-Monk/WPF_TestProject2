@@ -133,6 +133,9 @@ namespace WPF_TestProject2.ViewModels
         }
 
         #region Commands
+        /// <summary>
+        /// Handles navigation to Menu view
+        /// </summary>
         private DelegateCommand _navigateMenuCommand;
 
         public ICommand NavigateMenuCommand
@@ -153,6 +156,9 @@ namespace WPF_TestProject2.ViewModels
             _navigationStore.CurrentViewModel = new MenuViewModel(_navigationStore);
         }
 
+        /// <summary>
+        /// Handles navigation to KochFractal view
+        /// </summary>
         private DelegateCommand _navigateKochSnowflakeFractalCommand;
 
         public ICommand NavigateKochSnowflakeFractalCommand
@@ -172,6 +178,7 @@ namespace WPF_TestProject2.ViewModels
         {
             _navigationStore.CurrentViewModel = new KochSnowflakeFractalViewModel(_navigationStore);
         }
+
         /// <summary>
         /// navigation to barnsley fern fracral viewmodel
         /// </summary>
@@ -195,9 +202,9 @@ namespace WPF_TestProject2.ViewModels
             _navigationStore.CurrentViewModel = new BarnsleyFernFractalViewModel(_navigationStore);
         }
 
-        ///
-        ///
-        ///
+        /// <summary>
+        /// Copies selected image to clipboard
+        /// </summary>
         private DelegateCommand _copyImageToClipboardCommand;
 
         public ICommand CopyImageToClipboardCommand
@@ -218,7 +225,7 @@ namespace WPF_TestProject2.ViewModels
         }
 
         /// <summary>
-        /// reset state command
+        /// Resets viewmodel state
         /// </summary>
         private DelegateCommand _resetCommand;
 
@@ -259,6 +266,56 @@ namespace WPF_TestProject2.ViewModels
         public void NavigateInfoPage()
         {
             _navigationStore.CurrentViewModel = new InfoViewModel(_navigationStore, this);
+        }
+
+        /// <summary>
+        /// Renders IFS version of current fractal
+        /// </summary>
+        private DelegateCommand _ifsCommand;
+
+        public ICommand IFSCommand
+        {
+            get
+            {
+                if (_ifsCommand == null)
+                {
+                    _ifsCommand = new DelegateCommand(GetFractalIFS);
+                }
+                return _ifsCommand;
+            }
+        }
+
+        public void GetFractalIFS()
+        {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+
+            int sWidth = 700, sHeight = 650;
+            Bitmap bmp = new Bitmap(sWidth, sHeight);
+            Point center = new Point(100, 200);
+
+            FractalGenerator fGen = new FractalGenerator();
+            FractalInitiator fInit = new FractalInitiator();
+
+            fInit.AddVertex(new Point(50, 200));
+            fInit.AddVertex(new Point(400, 200));
+
+            fGen.AddNode(45);
+            fGen.AddNode(-90);
+
+            DragonCurveFracral dragonCurve = new DragonCurveFracral(fGen, fInit, RecursionsCount);
+            dragonCurve.RunIFS();
+            for (int i = 0; i < dragonCurve.EdgeCount; ++i)
+            {
+                Tuple<Point, Point> edge = dragonCurve.GetEdge(i);
+                Point start = new Point(edge.Item1.X + center.X, edge.Item1.Y + center.Y);
+                Point end = new Point(edge.Item2.X + center.X, edge.Item2.Y + center.Y);
+                if (GraphicsUtils.IsFit(start, sWidth, sHeight) && GraphicsUtils.IsFit(end, sWidth, sHeight))
+                    GraphicsUtils.DrawLine(bmp, GraphicsUtils.GetPointsOnLine(start, end), System.Drawing.Color.Black);
+            }
+
+            FractalBmp = GraphicsUtils.ConvertToWriteableBitmap(bmp); ;
+            RenderTime = sw.ElapsedMilliseconds / 1000.0f; 
         }
         #endregion
     }

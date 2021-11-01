@@ -61,8 +61,10 @@ namespace WPF_TestProject2.Classes
         public static Point GetEndpoint(double angle, Point start, float lenght)
         {
             double radians = Math.PI / 180 * angle;
+            double cosine = Math.Cos(radians);
             double x2 = start.X + (lenght * Math.Cos(radians));
             double y2 = start.Y - (lenght * Math.Sin(radians));
+            cosine = Math.Cos(radians);
 
             return new Point((int)Math.Round(x2), (int)Math.Round(y2));
         }
