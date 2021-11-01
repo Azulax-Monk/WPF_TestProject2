@@ -57,6 +57,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\AffineTransformation.cs" />
     <Compile Include="Classes\BarnsleyFernFractal.cs" />
     <Compile Include="Classes\DragonCurveFracral.cs" />
     <Compile Include="Classes\FractalGenerator.cs" />

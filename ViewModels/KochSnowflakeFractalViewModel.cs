@@ -39,22 +39,23 @@ namespace WPF_TestProject2.ViewModels
         {
             int sWidth = 1280, sHeight = 900;
             Bitmap bmp = new Bitmap(sWidth, sHeight);
-            Point center = new Point(100, 350);
+            Point center = new Point(250, 350);
 
             FractalGenerator fGen = new FractalGenerator();
             FractalInitiator fInit = new FractalInitiator();
 
-            fInit.AddVertex(new Point(0, 0)); 
-            fInit.AddVertex(new Point(450, 450));
-            fInit.AddVertex(new Point(900, 0)); 
+            fInit.AddVertex(new Point(50, 75));
+            fInit.AddVertex(new Point(175, -225));
+            fInit.AddVertex(new Point(325, 75));
 
             fGen.AddNode(0);
-            fGen.AddNode(-60);
-            fGen.AddNode(120);
-            fGen.AddNode(-60);
+            fGen.AddNode(60); //-60
+            fGen.AddNode(-120); //120
+            fGen.AddNode(60); //-60
 
             KochSnowflakeFractal kochSnowflake = new KochSnowflakeFractal(fGen, fInit, IterationsCount);
             kochSnowflake.Run();
+
             for (int i = 0; i < kochSnowflake.EdgeCount; ++i)
             {
                 Tuple<Point, Point> edge = kochSnowflake.GetEdge(i);
@@ -63,7 +64,7 @@ namespace WPF_TestProject2.ViewModels
                 if (GraphicsUtils.IsFit(start, sWidth, sHeight) && GraphicsUtils.IsFit(end, sWidth, sHeight))
                     GraphicsUtils.DrawLine(bmp, start, end, System.Drawing.Color.Black);
             }
-
+            
             return GraphicsUtils.ConvertToWriteableBitmap(bmp);
         }
 
@@ -138,6 +139,9 @@ namespace WPF_TestProject2.ViewModels
         }
 
         #region Commands
+        /// <summary>
+        /// Handles navigation to Menu view
+        /// </summary>
         private DelegateCommand _navigateMenuCommand;
 
         public ICommand NavigateMenuCommand
@@ -245,6 +249,59 @@ namespace WPF_TestProject2.ViewModels
         public void Reset()
         {
             _navigationStore.CurrentViewModel = new KochSnowflakeFractalViewModel(_navigationStore);
+        }
+
+        /// <summary>
+        /// Renders IFS version of current fractal
+        /// </summary>
+        private DelegateCommand _ifsCommand;
+
+        public ICommand IFSCommand
+        {
+            get
+            {
+                if (_ifsCommand == null)
+                {
+                    _ifsCommand = new DelegateCommand(GetFractalIFS);
+                }
+                return _ifsCommand;
+            }
+        }
+
+        public void GetFractalIFS()
+        {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+
+            int sWidth = 1280, sHeight = 900;
+            Bitmap bmp = new Bitmap(sWidth, sHeight);
+            Point center = new Point(250, 350);
+
+            FractalGenerator fGen = new FractalGenerator();
+            FractalInitiator fInit = new FractalInitiator();
+
+            fInit.AddVertex(new Point(50, 75));
+            fInit.AddVertex(new Point(175, -225));
+            fInit.AddVertex(new Point(325, 75));
+
+            fGen.AddNode(0);
+            fGen.AddNode(60); //-60
+            fGen.AddNode(-120); //120
+            fGen.AddNode(60); //-60
+
+            KochSnowflakeFractal kochSnowflake = new KochSnowflakeFractal(fGen, fInit, IterationsCount);
+            kochSnowflake.RunIFS();
+            for (int i = 0; i < kochSnowflake.EdgeCount; ++i)
+            {
+                Tuple<Point, Point> edge = kochSnowflake.GetEdge(i);
+                Point start = new Point(edge.Item1.X + center.X, edge.Item1.Y + center.Y);
+                Point end = new Point(edge.Item2.X + center.X, edge.Item2.Y + center.Y);
+                if (GraphicsUtils.IsFit(start, sWidth, sHeight) && GraphicsUtils.IsFit(end, sWidth, sHeight))
+                    GraphicsUtils.DrawLine(bmp, start, end, System.Drawing.Color.Black);
+            }
+
+            FractalBmp = GraphicsUtils.ConvertToWriteableBitmap(bmp); ;
+            RenderTime = sw.ElapsedMilliseconds / 1000.0f;
         }
         #endregion
     }
