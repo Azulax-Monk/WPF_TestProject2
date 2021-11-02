@@ -1,0 +1,136 @@
+﻿<UserControl x:Class="WPF_TestProject2.Views.ColorSchemeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:local="clr-namespace:WPF_TestProject2.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="16"/>
+            
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style TargetType="Slider">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid Background="#ECECEC">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="9*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" BorderThickness="1" HorizontalAlignment="Left" BorderBrush="Black"
+                        Command="{Binding NavigateInfoPageCommand}" Margin="20, 10" Background="#CFE1B9">Info</Button>
+                <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#CFE1B9">
+                    Color scheme</TextBlock>
+            </Grid>
+            <Grid Grid.Row="1" Background="#CFE1B9" Margin="10, 5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0"  Grid.Row="0" Margin="10">Original image:</Label>
+                <Image Grid.Column="0" Grid.Row="1" Source="{Binding OriginalBmp}"
+                      MouseLeftButtonDown="{Binding }"  Margin="10" Stretch="Uniform" StretchDirection="DownOnly">
+                    <i:Interaction.Behaviors>
+                        <MouseBehaviour MouseX="{Binding PanelX, Mode=OneWayToSource}" 
+                                                      MouseY="{Binding PanelY, Mode=OneWayToSource}" />
+                    </i:Interaction.Behaviors>
+                </Image>
+                <Image Grid.Column="1" Grid.Row="1" Margin="10" Stretch="None"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="1" Background="#CFE1B9">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                        <TextBlock Text="{Binding PanelX, StringFormat='X={0}'}" />
+                        <TextBlock Text="{Binding PanelY, StringFormat='y={0}'}" />
+                    </StackPanel>
+                </DockPanel>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0">CMYK:</Label>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="Yellow:"/>
+                    <Slider Grid.Row="1" ></Slider>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Black:"/>
+                <Slider Grid.Row="1" ></Slider>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Command="{Binding NavigateMenuCommand}" BorderThickness="1" BorderBrush="Black" Margin="5, 15" Background="#CFE1B9">
+                    back
+                </Button>
+                <Button Grid.Column="1" Command="{Binding LoadImageCommand}" BorderThickness="1" BorderBrush="Black" Margin="5, 15" Background="#CFE1B9">
+                    <Image Source="/Resources/LoadButton.png" Width="20"></Image>
+                </Button>
+                <Button Grid.Column="3" Command="{Binding ResetCommand}" BorderThickness="1" BorderBrush="Black" Margin="5, 15" Background="#CFE1B9">
+                    reset
+                </Button>
+            </Grid>
+            
+        </Grid>
+    </Grid>
+</UserControl>

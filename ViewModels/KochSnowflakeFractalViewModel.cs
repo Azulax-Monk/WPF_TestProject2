@@ -250,10 +250,9 @@ namespace WPF_TestProject2.ViewModels
         {
             _navigationStore.CurrentViewModel = new KochSnowflakeFractalViewModel(_navigationStore);
         }
-        /////
-        /////
-        /////
-        ///
+        /// <summary>
+        /// Handles navigation to Info view
+        /// </summary>
         private DelegateCommand _navigateInfoPageCommand;
         public ICommand NavigateInfoPageCommand
         {

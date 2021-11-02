@@ -47,7 +47,7 @@
 
                 <Button Grid.Column="0" BorderThickness="1" HorizontalAlignment="Left"
                         Command="{Binding NavigateInfoPageCommand}" BorderBrush="Black" Margin="20, 10" Background="#CFE1B9">Info</Button>
-                <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#CFE1B9">Fractals</TextBlock>
+                <TextBlock FontSize="16" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#CFE1B9">Fractals</TextBlock>
             </Grid>
 
             <Grid Grid.Row="1" Background="#CFE1B9" Margin="10, 5">

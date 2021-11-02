@@ -38,6 +38,44 @@ namespace WPF_TestProject2.ViewModels
         {
             _navigationStore.CurrentViewModel = new DragonCurveFractalViewModel(_navigationStore);
         }
+
+        private DelegateCommand _navigateAffineTransformationsCommand;
+        public ICommand NavigateAffineTransformationsCommand
+        {
+            get
+            {
+                if (_navigateAffineTransformationsCommand == null)
+                {
+                    Console.WriteLine("Reached here");
+                    _navigateAffineTransformationsCommand = new DelegateCommand(NavigateAffineTransformations);
+                }
+                return _navigateAffineTransformationsCommand;
+            }
+        }
+
+        public void NavigateAffineTransformations()
+        {
+            _navigationStore.CurrentViewModel = new AffineTransformationsViewModel(_navigationStore);
+        }
+
+        private DelegateCommand _navigateColorSchemeCommand;
+        public ICommand NavigateColorSchemeCommand
+        {
+            get
+            {
+                if (_navigateColorSchemeCommand == null)
+                {
+                    Console.WriteLine("Reached here");
+                    _navigateColorSchemeCommand = new DelegateCommand(NavigateColorScheme);
+                }
+                return _navigateColorSchemeCommand;
+            }
+        }
+
+        public void NavigateColorScheme()
+        {
+            _navigationStore.CurrentViewModel = new ColorSchemeViewModel(_navigationStore);
+        }
         #endregion
     }
 }

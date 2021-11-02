@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using WPF_TestProject2.Commands;
@@ -10,13 +11,22 @@ using WPF_TestProject2.Stores;
 
 namespace WPF_TestProject2.ViewModels
 {
-    class AffineTransformationsViewModel : ViewModelBase
+    class ColorSchemeViewModel : ViewModelBase
     {
         private readonly NavigationStore _navigationStore;
 
-        private System.Windows.Media.Imaging.WriteableBitmap _transformationsBmp;
+        private WriteableBitmap _originalBmp;
+        public WriteableBitmap OriginalBmp
+        {
+            get { return _originalBmp; }
+            set
+            {
+                _originalBmp = value;
+                OnPropertyChanged(nameof(OriginalBmp));
+            }
+        }
 
-        public AffineTransformationsViewModel(NavigationStore navigationStore)
+        public ColorSchemeViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
 
@@ -24,6 +34,26 @@ namespace WPF_TestProject2.ViewModels
 
         #region Commands
 
+
+        private DelegateCommand _getMousePositionCommand;
+
+        public ICommand GetMousePositionCommand
+        {
+            get
+            {
+                if (_getMousePositionCommand == null)
+                {
+                    Console.WriteLine("Reached here");
+                    _getMousePositionCommand = new DelegateCommand(GetMousePosition);
+                }
+                return _getMousePositionCommand;
+            }
+        }
+
+        public void GetMousePosition()
+        {
+
+        }
         /// <summary>
         /// Handles navigation to Menu view
         /// </summary>
@@ -70,27 +100,40 @@ namespace WPF_TestProject2.ViewModels
         }
 
         /// <summary>
-        /// copy Fractal image to clipboard command
-        /// <summary>
-        private DelegateCommand _copyImageToClipboardCommand;
+        /// /////
+        /// </summary>
 
-        public ICommand CopyImageToClipboardCommand
+        private DelegateCommand _loadImageCommand;
+
+        public ICommand LoadImageCommand
         {
             get
             {
-                if (_copyImageToClipboardCommand == null)
+                if (_loadImageCommand == null)
                 {
-                    _copyImageToClipboardCommand = new DelegateCommand(() => CopyImageToClipboard(_transformationsBmp));
+                    _loadImageCommand = new DelegateCommand(LoadImage);
                 }
-                return _copyImageToClipboardCommand;
+                return _loadImageCommand;
             }
         }
 
-        public void CopyImageToClipboard(WriteableBitmap bmp)
+        public void LoadImage()
         {
-            System.Windows.Clipboard.SetImage(bmp);
-        }
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "Image files (*.jpg)|*.jpg|All Files (*.*)|*.*";
+            dlg.RestoreDirectory = true;
 
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string selectedFileName = dlg.FileName;
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(selectedFileName);
+                bitmap.EndInit();
+                OriginalBmp = new WriteableBitmap(bitmap);
+            }
+
+        }
         /// <summary>
         /// reset state command
         /// </summary>
@@ -110,8 +153,9 @@ namespace WPF_TestProject2.ViewModels
 
         public void Reset()
         {
-            _navigationStore.CurrentViewModel = new AffineTransformationsViewModel(_navigationStore);
+            _navigationStore.CurrentViewModel = new ColorSchemeViewModel(_navigationStore);
         }
-        #endregion
     }
+
+    #endregion
 }
