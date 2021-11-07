@@ -1,0 +1,137 @@
+﻿<UserControl x:Class="WPF_TestProject2.Views.HSL_DialogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPF_TestProject2.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="#CFE1B9">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="#ECECEC">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button
+                Content="CMYK"
+                Grid.Column="1"
+                BorderThickness="1" 
+                BorderBrush="Black" 
+                Margin="5, 15"
+                Background="#CFE1B9"
+                Command="{Binding NavigateCMYK_Command}"/>
+
+            <Button
+                Content="HSL"
+                Grid.Column="3"
+                BorderThickness="1" 
+                BorderBrush="Black" 
+                Margin="5, 15"
+                Background="#87986A"
+                IsEnabled="False"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock 
+                Grid.Row="0" 
+                Grid.Column="1" 
+                Text="H:" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"/>
+            <TextBox
+                Grid.Row="1"
+                Grid.Column="1" 
+                Margin="10, 5"
+                Text="{Binding H, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <TextBlock 
+                Grid.Row="0" 
+                Grid.Column="2" 
+                Text="S:" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"/>
+            <TextBox
+                Grid.Row="1"
+                Grid.Column="2" 
+                Margin="10, 5"
+                Text="{Binding S, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <TextBlock 
+                Grid.Row="0" 
+                Grid.Column="3" 
+                Text="L:" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"/>
+            <TextBox
+                Grid.Row="1"
+                Grid.Column="3" 
+                Margin="10, 5"
+                Text="{Binding L, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <Label 
+                Grid.Row="0" 
+                Content="Lightness:" 
+                Margin="10, 0" />
+            <Slider 
+                Grid.Row="1" 
+                Value="{Binding L, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                Maximum ="1.0" 
+                Minimum="0" 
+                TickFrequency="0.1" 
+                IsSnapToTickEnabled="True" 
+                LargeChange="0.5" 
+                Margin="10, 0"/>
+        </Grid>
+
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label 
+                Grid.Row="0" 
+                Content="Saturation:" 
+                Margin="10, 0" />
+            <Slider 
+                Grid.Row="1" 
+                Value="{Binding S, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                Maximum ="1.0" 
+                Minimum="0" 
+                TickFrequency="0.1" 
+                IsSnapToTickEnabled="True" 
+                LargeChange="0.5" 
+                Margin="10, 0" />
+        </Grid>
+    </Grid>
+</UserControl>

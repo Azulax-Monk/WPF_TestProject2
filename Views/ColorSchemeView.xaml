@@ -6,7 +6,7 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:WPF_TestProject2.Views"
              xmlns:classes="clr-namespace:WPF_TestProject2.Classes"
-             xmlns:converters ="clr-namespace:WPF_TestProject2.Converters"
+             xmlns:converters ="clr-namespace:WPF_TestProject2.Converters" 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -69,13 +69,66 @@
                        Source="{Binding ChangedBmp,Converter={StaticResource ImageSourceConverter}}"/>
             </Grid>
         </Grid>
+
         <Grid Grid.Column="1" Background="#CFE1B9">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"  />
+                <RowDefinition Height="4*" />
+                <RowDefinition Height="*"  />
+                <RowDefinition Height="*"  />
+            </Grid.RowDefinitions>
+
+            <ContentControl 
+                Grid.Row="1"
+                Content="{Binding ColorSchemeDialog}" />
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button 
+                    Grid.Column="3"
+                    Command="{Binding ApplyCommand}"
+                    Background="#87986A"
+                    Content="Apply" 
+                    BorderThickness="1" 
+                    BorderBrush="Black" 
+                    Margin="5, 15" />
+            </Grid>
+
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Command="{Binding NavigateMenuCommand}" BorderThickness="1" BorderBrush="Black" Margin="5, 15" Background="#CFE1B9">
+                    back
+                </Button>
+                <Button Grid.Column="1" Command="{Binding LoadImageCommand}" BorderThickness="1" BorderBrush="Black" Margin="5, 15" Background="#CFE1B9">
+                    <Image Source="/Resources/LoadButton.png" Width="20"></Image>
+                </Button>
+                <Button Grid.Column="3" Command="{Binding ResetCommand}" BorderThickness="1" BorderBrush="Black" Margin="5, 15" Background="#CFE1B9">
+                    reset
+                </Button>
+            </Grid>
+
+        </Grid>
+        
+        <!--<Grid Grid.Column="1" Background="#CFE1B9">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
+
+            <customcontrol:CMYK_Dialog />
+
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -116,8 +169,8 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                <Label Grid.Row="0" Content="Saturation:"/>
-                <Slider Grid.Row="1" ></Slider>
+                    <Label Grid.Row="0" Content="Saturation:"/>
+                    <Slider Grid.Row="1" ></Slider>
                 </Grid>
             </Grid>
             <Grid Grid.Row="3">
@@ -137,7 +190,7 @@
                     reset
                 </Button>
             </Grid>
-            
-        </Grid>
+
+        </Grid>-->
     </Grid>
 </UserControl>

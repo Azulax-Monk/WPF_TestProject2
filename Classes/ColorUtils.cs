@@ -31,6 +31,7 @@ namespace WPF_TestProject2.Classes
             }
 
         }
+
         public static int[] cmykToRgb(float c, float m, float y, float k)
         {
             c = c * (1 - k) + k;
@@ -114,7 +115,6 @@ namespace WPF_TestProject2.Classes
 
             float m = l - 0.5f * c;
             return new float[] { rgb[0] + m, rgb[1] + m, rgb[2] + m };
-
         }
 }
 }

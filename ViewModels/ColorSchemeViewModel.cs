@@ -12,15 +12,9 @@ namespace WPF_TestProject2.ViewModels
 {
     class ColorSchemeViewModel : ViewModelBase
     {
-        public ColorSchemeViewModel()
-        {
-      
-            C = 0;
-            M = 0;
-            Y = 0;
-            K = 0;
-        }
         private readonly NavigationStore _navigationStore;
+
+        public ViewModelBase ColorSchemeDialog { get; set; }
 
         private Bitmap _originalBmp;
         public Bitmap OriginalBmp
@@ -45,77 +39,82 @@ namespace WPF_TestProject2.ViewModels
         }
 
         private double _panelX;
+
         private double _panelY;
-        private float _c;
-        public float C
-        {
-            get { return _c; }
-            set
-            {
-                _c = value;
-                OnPropertyChanged(nameof(C));
-            }
-        }
-        private float _m;
-        public float M
-        {
-            get { return _m; }
-            set
-            {
-                _m = value;
-                OnPropertyChanged(nameof(M));
-            }
-        }
-        private float _y;
-        public float Y
-        {
-            get { return _y; }
-            set
-            {
-                _y = value;
-                OnPropertyChanged(nameof(Y));
-            }
-        }
-        private float _k;
-        public float K
-        {
-            get { return _k; }
-            set
-            {
-                _k = value;
-                OnPropertyChanged(nameof(K));
-            }
-        }
-        private float _h;
-        public float H
-        {
-            get { return _h; }
-            set
-            {
-                _h = value;
-                OnPropertyChanged(nameof(H));
-            }
-        }
-        private float _s;
-        public float S
-        {
-            get { return _s; }
-            set
-            {
-                _s = value;
-                OnPropertyChanged(nameof(S));
-            }
-        }
-        private float _l;
-        public float L
-        {
-            get { return _l; }
-            set
-            {
-                _l = value;
-                OnPropertyChanged(nameof(L));
-            }
-        }
+
+        //private float _c;
+        //public float C
+        //{
+        //    get { return _c; }
+        //    set
+        //    {
+        //        _c = value;
+        //        OnPropertyChanged(nameof(C));
+        //    }
+        //}
+
+        //private float _m;
+        //public float M
+        //{
+        //    get { return _m; }
+        //    set
+        //    {
+        //        _m = value;
+        //        OnPropertyChanged(nameof(M));
+        //    }
+        //}
+
+        //private float _y;
+        //public float Y
+        //{
+        //    get { return _y; }
+        //    set
+        //    {
+        //        _y = value;
+        //        OnPropertyChanged(nameof(Y));
+        //    }
+        //}
+
+        //private float _k;
+        //public float K
+        //{
+        //    get { return _k; }
+        //    set
+        //    {
+        //        _k = value;
+        //        OnPropertyChanged(nameof(K));
+        //    }
+        //}
+        //private float _h;
+        //public float H
+        //{
+        //    get { return _h; }
+        //    set
+        //    {
+        //        _h = value;
+        //        OnPropertyChanged(nameof(H));
+        //    }
+        //}
+        //private float _s;
+        //public float S
+        //{
+        //    get { return _s; }
+        //    set
+        //    {
+        //        _s = value;
+        //        OnPropertyChanged(nameof(S));
+        //    }
+        //}
+        //private float _l;
+        //public float L
+        //{
+        //    get { return _l; }
+        //    set
+        //    {
+        //        _l = value;
+        //        OnPropertyChanged(nameof(L));
+        //    }
+        //}
         public double PanelX
         {
             get { return _panelX; }
@@ -139,22 +138,24 @@ namespace WPF_TestProject2.ViewModels
                 GetHSL();
             }
         }
-        private double _lightness;
-        public double Lightness
-        {
-            get { return _lightness; }
-            set
-            {
-                _lightness = value;
-                OnPropertyChanged(nameof(Lightness));
-                ChangeLightness();
-            }
-        }
+
+        //private double _lightness;
+        //public double Lightness
+        //{
+        //    get { return ((HSL_DialogViewModel)ColorSchemeDialog).L; }
+        //    set
+        //    {
+        //        ((HSL_DialogViewModel)ColorSchemeDialog).L = (float)value;
+        //        OnPropertyChanged(nameof(Lightness));
+        //        ChangeLightness();
+        //    }
+        //}
 
         public ColorSchemeViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
 
+            ColorSchemeDialog = new HSL_DialogViewModel(0, 0, 0, NavigateCMYK_Command);//new CMYK_DialogViewModel(0, 0, 0, 0);
         }
 
         private void GetCMYK()
@@ -163,11 +164,10 @@ namespace WPF_TestProject2.ViewModels
             {
                 Color col = OriginalBmp.GetPixel((int)PanelX, (int)PanelY);
                 float[] cmyk = ColorUtils.rgbToCmyk(col.R, col.G, col.B);
-                C = cmyk[0];
-                M = cmyk[1];
-                Y = cmyk[2];
-                K = cmyk[3];
-
+                ((CMYK_DialogViewModel)ColorSchemeDialog).C = cmyk[0];
+                ((CMYK_DialogViewModel)ColorSchemeDialog).M = cmyk[1];
+                ((CMYK_DialogViewModel)ColorSchemeDialog).Y = cmyk[2];
+                ((CMYK_DialogViewModel)ColorSchemeDialog).K = cmyk[3];
             }
         }
 
@@ -177,14 +177,17 @@ namespace WPF_TestProject2.ViewModels
             {
                 Color col = OriginalBmp.GetPixel((int)PanelX, (int)PanelY);
                 float[] hsl = ColorUtils.rgbToHsl(col.R, col.G, col.B);
-                H = hsl[0];
-                S = hsl[1];
-                L = hsl[2];
+                ((HSL_DialogViewModel)ColorSchemeDialog).H = hsl[0];
+                ((HSL_DialogViewModel)ColorSchemeDialog).S = hsl[1];
+                ((HSL_DialogViewModel)ColorSchemeDialog).L = hsl[2];
             }
         }
 
         private void ChangeLightness()
         {
+            float lightness = ((HSL_DialogViewModel)ColorSchemeDialog).L;
+            float saturation = ((HSL_DialogViewModel)ColorSchemeDialog).S;
+
             if (OriginalBmp != null)
             {
                 Bitmap bmp = new Bitmap(OriginalBmp);
@@ -203,13 +206,20 @@ namespace WPF_TestProject2.ViewModels
                 float[] currRgb;
                 float[] currHsl;
                 
-               
                 for (int counter = 0; counter < rgbValues.Length; counter += 4)
-                {
-                    
+                {    
                     currHsl = ColorUtils.rgbToHsl(rgbValues[counter + 2], rgbValues[counter + 1], rgbValues[counter]);
-                    if(currHsl[0]>=40&&currHsl[0]<=60)
-                        currHsl[2] *= (float)Lightness;
+                    if (currHsl[0] >= 40 && currHsl[0] <= 60)
+                    {
+                        currHsl[1] *= saturation >= 0.5 ? (float)saturation + 0.5f : (float)saturation;
+                        currHsl[2] *= lightness >= 0.5 ? (float)lightness + 0.5f : (float)lightness;
+                    }
+
+                    if (currHsl[2] > 1.0f)
+                        currHsl[2] = 1.0f;
+                    if (currHsl[1] > 1.0f)
+                        currHsl[1] = 1.0f;
+
                     currRgb = ColorUtils.hslToRgb(currHsl[0], currHsl[1], currHsl[2]);
                     rgbValues[counter] = (byte)Math.Round(currRgb[2] * 255);
                     rgbValues[counter+1] = (byte)Math.Round(currRgb[1] * 255);
@@ -219,18 +229,15 @@ namespace WPF_TestProject2.ViewModels
                 System.Runtime.InteropServices.Marshal.Copy(rgbValues, 0, ptr, bytes);
                 bmp.UnlockBits(bmpData);
                 ChangedBmp = bmp;
-               
-
             }
-
-
         }
-        #region Commands
 
+        #region Commands
         /// <summary>
         /// Handles navigation to Info view
         /// </summary>
         private DelegateCommand _navigateInfoPageCommand;
+
         public ICommand NavigateInfoPageCommand
         {
             get
@@ -252,7 +259,6 @@ namespace WPF_TestProject2.ViewModels
         /// <summary>
         /// /////
         /// </summary>
-
         private DelegateCommand _loadImageCommand;
 
         public ICommand LoadImageCommand
@@ -281,6 +287,7 @@ namespace WPF_TestProject2.ViewModels
             }
 
         }
+
         /// <summary>
         /// Handles navigation to Menu view
         /// </summary>
@@ -325,7 +332,76 @@ namespace WPF_TestProject2.ViewModels
         {
             _navigationStore.CurrentViewModel = new ColorSchemeViewModel(_navigationStore);
         }
-    }
 
-    #endregion
+        /// <summary>
+        /// Command to pass to CMYK_DialogViewModel ctor as parameter
+        /// Handles navigation to HSL dialog view
+        /// </summary>
+        private DelegateCommand _navigateHSL_Command;
+
+        public ICommand NavigateHSL_Command
+        {
+            get
+            {
+                if (_navigateHSL_Command == null)
+                {
+                    _navigateHSL_Command = new DelegateCommand(NavigateHSL);
+                }
+                return _navigateHSL_Command;
+            }
+        }
+
+        public void NavigateHSL()
+        {
+            ColorSchemeDialog = new HSL_DialogViewModel(0, 0, 0, NavigateCMYK_Command);
+            OnPropertyChanged(nameof(ColorSchemeDialog));
+        }
+
+        /// <summary>
+        /// Command to pass to HSL_DialogViewModel ctor as parameter
+        /// Handles navigation to CMYK dialog view
+        /// </summary>
+        private DelegateCommand _navigateCMYK_Command;
+
+        public ICommand NavigateCMYK_Command
+        {
+            get
+            {
+                if (_navigateCMYK_Command == null)
+                {
+                    _navigateCMYK_Command = new DelegateCommand(NavigateCMYK);
+                }
+                return _navigateCMYK_Command;
+            }
+        }
+
+        public void NavigateCMYK()
+        {
+            ColorSchemeDialog = new CMYK_DialogViewModel(0, 0, 0, 0, NavigateHSL_Command);
+            OnPropertyChanged(nameof(ColorSchemeDialog));
+        }
+
+        /// <summary>
+        /// Apply color settings to the photo
+        /// </summary>
+        private DelegateCommand _applyCommand;
+
+        public ICommand ApplyCommand
+        {
+            get
+            {
+                if (_applyCommand == null)
+                {
+                    _applyCommand = new DelegateCommand(Apply);
+                }
+                return _applyCommand;
+            }
+        }
+
+        public void Apply()
+        {
+            ChangeLightness();
+        }
+        #endregion
+    }
 }

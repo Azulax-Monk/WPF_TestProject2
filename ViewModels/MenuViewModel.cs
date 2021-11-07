@@ -19,6 +19,9 @@ namespace WPF_TestProject2.ViewModels
         }
 
         #region Commands
+        /// <summary>
+        /// Navigate to Fractals view
+        /// </summary>
         private DelegateCommand _navigateDragonCurveFractalCommand;
 
         public ICommand NavigateDragonCurveFractalCommand
@@ -39,7 +42,11 @@ namespace WPF_TestProject2.ViewModels
             _navigationStore.CurrentViewModel = new DragonCurveFractalViewModel(_navigationStore);
         }
 
+        /// <summary>
+        /// Navigate to Affine Transformation view
+        /// </summary>
         private DelegateCommand _navigateAffineTransformationsCommand;
+
         public ICommand NavigateAffineTransformationsCommand
         {
             get
@@ -58,6 +65,9 @@ namespace WPF_TestProject2.ViewModels
             _navigationStore.CurrentViewModel = new AffineTransformationsViewModel(_navigationStore);
         }
 
+        /// <summary>
+        /// Navigate to Color Scheme view
+        /// </summary>
         private DelegateCommand _navigateColorSchemeCommand;
         public ICommand NavigateColorSchemeCommand
         {
