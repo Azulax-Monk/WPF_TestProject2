@@ -188,6 +188,9 @@ namespace WPF_TestProject2.ViewModels
         }
 
         #region Commands
+        /// <summary>
+        /// Handles navigation to Menu view
+        /// </summary>
         private DelegateCommand _navigateMenuCommand;
 
         public ICommand NavigateMenuCommand
@@ -207,7 +210,9 @@ namespace WPF_TestProject2.ViewModels
         {
             _navigationStore.CurrentViewModel = new MenuViewModel(_navigationStore);
         }
-
+        /// <summary>
+        /// Handles navigation to KochSnowflake view
+        /// </summary>
         private DelegateCommand _navigateKochSnowflakeFractalCommand;
         public ICommand NavigateKochSnowflakeFractalCommand
         {
@@ -227,7 +232,9 @@ namespace WPF_TestProject2.ViewModels
             _navigationStore.CurrentViewModel = new KochSnowflakeFractalViewModel(_navigationStore);
         }
 
-
+        /// <summary>
+        /// Handles navigation to DragonCurve view
+        /// </summary>
         private DelegateCommand _navigateDragonCurveFractalCommand;
         public ICommand NavigateDragonCurveFractalCommand
         {
@@ -246,7 +253,9 @@ namespace WPF_TestProject2.ViewModels
         {
             _navigationStore.CurrentViewModel = new DragonCurveFractalViewModel(_navigationStore);
         }
-
+        /// <summary>
+        /// Handles submitting the coefficients of equations
+        /// </summary>
         private Command _submitCommand;
         public Command SubmitCommand
         {
@@ -262,7 +271,9 @@ namespace WPF_TestProject2.ViewModels
                     }));
             }
         }
-
+        /// <summary>
+        /// Handles switching between default set of equations
+        /// </summary>
         private Command _changeModelCommand;
         public Command ChangeModelCommand
         {
@@ -286,9 +297,9 @@ namespace WPF_TestProject2.ViewModels
             }
         }
 
-        ///
-        ///
-        ///
+        /// <summary>
+        /// Handles copying image
+        /// </summary>
         private DelegateCommand _copyImageToClipboardCommand;
 
         public ICommand CopyImageToClipboardCommand
@@ -329,10 +340,10 @@ namespace WPF_TestProject2.ViewModels
         {
             _navigationStore.CurrentViewModel = new BarnsleyFernFractalViewModel(_navigationStore);
         }
-        /////
-        /////
-        /////
-        ///
+
+        /// <summary>
+        /// Handles navigation to Info view
+        /// </summary>
         private DelegateCommand _navigateInfoPageCommand;
         public ICommand NavigateInfoPageCommand
         {

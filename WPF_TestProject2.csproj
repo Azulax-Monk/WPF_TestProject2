@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Xaml.Behaviors.Wpf.1.1.37\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -59,20 +62,25 @@
     </ApplicationDefinition>
     <Compile Include="Classes\AffineTransformation.cs" />
     <Compile Include="Classes\BarnsleyFernFractal.cs" />
+    <Compile Include="Classes\ColorUtils.cs" />
     <Compile Include="Classes\DragonCurveFracral.cs" />
     <Compile Include="Classes\FractalGenerator.cs" />
     <Compile Include="Classes\FractalInitiator.cs" />
     <Compile Include="Classes\FractalType.cs" />
     <Compile Include="Classes\GraphicsUtils.cs" />
     <Compile Include="Classes\KochSnowflakeFractal.cs" />
+    <Compile Include="Classes\MouseBehaviour.cs" />
     <Compile Include="Classes\OrientationType.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\DelegateCommand.cs" />
+    <Compile Include="Converters\CMYKConverter.cs" />
+    <Compile Include="Converters\ImageSourceConverter.cs" />
     <Compile Include="Models\BarnsleyFernFractalModel.cs" />
     <Compile Include="Models\DragonCurveFractalModel.cs" />
     <Compile Include="Models\KochSnowflakeFractalModel.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="ViewModels\AffineTransformationsViewModel.cs" />
+    <Compile Include="ViewModels\ColorSchemeViewModel.cs" />
     <Compile Include="ViewModels\InfoViewModel.cs" />
     <Compile Include="ViewModels\BarnsleyFernFractalViewModel.cs" />
     <Compile Include="ViewModels\DragonCurveFractalViewModel.cs" />
@@ -85,6 +93,9 @@
     </Compile>
     <Compile Include="Views\BarnsleyFernFractalView.xaml.cs">
       <DependentUpon>BarnsleyFernFractalView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ColorSchemeView.xaml.cs">
+      <DependentUpon>ColorSchemeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DragonCurveFractalView.xaml.cs">
       <DependentUpon>DragonCurveFractalView.xaml</DependentUpon>
@@ -115,6 +126,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BarnsleyFernFractalView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ColorSchemeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -153,6 +168,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -168,6 +184,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\MenuImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LoadButton.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
