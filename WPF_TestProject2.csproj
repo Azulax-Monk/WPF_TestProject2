@@ -62,15 +62,19 @@
     </ApplicationDefinition>
     <Compile Include="Classes\AffineTransformation.cs" />
     <Compile Include="Classes\BarnsleyFernFractal.cs" />
+    <Compile Include="Classes\ColorUtils.cs" />
     <Compile Include="Classes\DragonCurveFracral.cs" />
     <Compile Include="Classes\FractalGenerator.cs" />
     <Compile Include="Classes\FractalInitiator.cs" />
     <Compile Include="Classes\FractalType.cs" />
     <Compile Include="Classes\GraphicsUtils.cs" />
     <Compile Include="Classes\KochSnowflakeFractal.cs" />
+    <Compile Include="Classes\MouseBehaviour.cs" />
     <Compile Include="Classes\OrientationType.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\DelegateCommand.cs" />
+    <Compile Include="Converters\CMYKConverter.cs" />
+    <Compile Include="Converters\ImageSourceConverter.cs" />
     <Compile Include="Models\BarnsleyFernFractalModel.cs" />
     <Compile Include="Models\DragonCurveFractalModel.cs" />
     <Compile Include="Models\KochSnowflakeFractalModel.cs" />

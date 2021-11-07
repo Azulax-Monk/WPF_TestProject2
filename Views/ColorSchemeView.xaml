@@ -3,11 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:WPF_TestProject2.Views"
+             xmlns:classes="clr-namespace:WPF_TestProject2.Classes"
+             xmlns:converters ="clr-namespace:WPF_TestProject2.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
     <UserControl.Resources>
+        <converters:ImageSourceConverter x:Key="ImageSourceConverter"/>
+        <converters:CMYKConverter x:Key="CMYKConverter"/>
         <Style TargetType="Label">
             <Setter Property="FontSize" Value="16"/>
             
@@ -54,14 +59,14 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <Label Grid.Column="0"  Grid.Row="0" Margin="10">Original image:</Label>
-                <Image Grid.Column="0" Grid.Row="1" Source="{Binding OriginalBmp}"
-                      MouseLeftButtonDown="{Binding }"  Margin="10" Stretch="Uniform" StretchDirection="DownOnly">
+                <Image Grid.Column="0" Grid.Row="1" Source="{Binding OriginalBmp, Converter={StaticResource ImageSourceConverter}}"
+                       Margin="10" Stretch="Uniform" StretchDirection="DownOnly">
                     <i:Interaction.Behaviors>
-                        <MouseBehaviour MouseX="{Binding PanelX, Mode=OneWayToSource}" 
-                                                      MouseY="{Binding PanelY, Mode=OneWayToSource}" />
+                        <classes:MouseBehaviour MouseX="{Binding PanelX, Mode=OneWayToSource}" MouseY="{Binding PanelY, Mode=OneWayToSource}" />
                     </i:Interaction.Behaviors>
                 </Image>
-                <Image Grid.Column="1" Grid.Row="1" Margin="10" Stretch="None"/>
+                <Image Grid.Column="1" Grid.Row="1" Margin="10" Stretch="Uniform" StretchDirection="DownOnly"
+                       Source="{Binding ChangedBmp,Converter={StaticResource ImageSourceConverter}}"/>
             </Grid>
         </Grid>
         <Grid Grid.Column="1" Background="#CFE1B9">
@@ -71,24 +76,25 @@
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <DockPanel>
-                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                        <TextBlock Text="{Binding PanelX, StringFormat='X={0}'}" />
-                        <TextBlock Text="{Binding PanelY, StringFormat='y={0}'}" />
-                    </StackPanel>
-                </DockPanel>
-            </Grid>
             <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Grid.Column="0">CMYK:</Label>
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <Label >CMYK:</Label>
+                    <TextBlock Text="{Binding C,  Converter={StaticResource CMYKConverter}}"/>
+                    <TextBlock Text="{Binding M, Converter={StaticResource CMYKConverter}}"/>
+                    <TextBlock Text="{Binding Y, Converter={StaticResource CMYKConverter}}"/>
+                    <TextBlock Text="{Binding K, Converter={StaticResource CMYKConverter}}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                    <Label >HSL:</Label>
+                    <TextBlock Text="{Binding H, StringFormat={}{0:0}; }"/>
+                    <TextBlock Text="{Binding S, Converter={StaticResource CMYKConverter}}"/>
+                    <TextBlock Text="{Binding L, Converter={StaticResource CMYKConverter}}"/>
+                </StackPanel>
+
             </Grid>
 
             <Grid Grid.Row="2">
@@ -101,15 +107,16 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Content="Yellow:"/>
-                    <Slider Grid.Row="1" ></Slider>
+                    <Label Grid.Row="0" Content="Lightness:"/>
+                    <Slider Grid.Row="1" Value="{Binding Lightness, UpdateSourceTrigger=PropertyChanged}" Maximum ="1.0" Minimum="0" 
+                            TickFrequency="0.1" IsSnapToTickEnabled="True" LargeChange="0.5"></Slider>
                 </Grid>
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                <Label Grid.Row="0" Content="Black:"/>
+                <Label Grid.Row="0" Content="Saturation:"/>
                 <Slider Grid.Row="1" ></Slider>
                 </Grid>
             </Grid>
