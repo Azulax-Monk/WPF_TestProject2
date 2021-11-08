@@ -29,6 +29,7 @@ namespace WPF_TestProject2.ViewModels
                     _c = 1.0f;
                 else
                     _c = value;
+                OnPropertyChanged(nameof(C));
             }
         }
         public float M
@@ -45,6 +46,7 @@ namespace WPF_TestProject2.ViewModels
                     _m = 1.0f;
                 else
                     _m = value;
+                OnPropertyChanged(nameof(M));
             }
         }
         public float Y
@@ -61,6 +63,7 @@ namespace WPF_TestProject2.ViewModels
                     _y = 1.0f;
                 else
                     _y = value;
+                OnPropertyChanged(nameof(Y));
             }
         }
         public float K
@@ -77,6 +80,7 @@ namespace WPF_TestProject2.ViewModels
                     _k = 1.0f;
                 else
                     _k = value;
+                OnPropertyChanged(nameof(K));
             }
         }
 

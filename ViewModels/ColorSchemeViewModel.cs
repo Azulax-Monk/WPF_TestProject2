@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using WPF_TestProject2.Classes;
 using WPF_TestProject2.Commands;
 using WPF_TestProject2.Stores;
@@ -39,82 +40,6 @@ namespace WPF_TestProject2.ViewModels
         }
 
         private double _panelX;
-
-        private double _panelY;
-
-        //private float _c;
-        //public float C
-        //{
-        //    get { return _c; }
-        //    set
-        //    {
-        //        _c = value;
-        //        OnPropertyChanged(nameof(C));
-        //    }
-        //}
-
-        //private float _m;
-        //public float M
-        //{
-        //    get { return _m; }
-        //    set
-        //    {
-        //        _m = value;
-        //        OnPropertyChanged(nameof(M));
-        //    }
-        //}
-
-        //private float _y;
-        //public float Y
-        //{
-        //    get { return _y; }
-        //    set
-        //    {
-        //        _y = value;
-        //        OnPropertyChanged(nameof(Y));
-        //    }
-        //}
-
-        //private float _k;
-        //public float K
-        //{
-        //    get { return _k; }
-        //    set
-        //    {
-        //        _k = value;
-        //        OnPropertyChanged(nameof(K));
-        //    }
-        //}
-        //private float _h;
-        //public float H
-        //{
-        //    get { return _h; }
-        //    set
-        //    {
-        //        _h = value;
-        //        OnPropertyChanged(nameof(H));
-        //    }
-        //}
-        //private float _s;
-        //public float S
-        //{
-        //    get { return _s; }
-        //    set
-        //    {
-        //        _s = value;
-        //        OnPropertyChanged(nameof(S));
-        //    }
-        //}
-        //private float _l;
-        //public float L
-        //{
-        //    get { return _l; }
-        //    set
-        //    {
-        //        _l = value;
-        //        OnPropertyChanged(nameof(L));
-        //    }
-        //}
         public double PanelX
         {
             get { return _panelX; }
@@ -122,11 +47,14 @@ namespace WPF_TestProject2.ViewModels
             {
                 _panelX = value;
                 OnPropertyChanged(nameof(PanelX));
-                GetCMYK();
-                GetHSL();
+                if (ColorSchemeDialog is CMYK_DialogViewModel)
+                    GetCMYK();
+                else
+                    GetHSL();
             }
         }
 
+        private double _panelY;
         public double PanelY
         {
             get { return _panelY; }
@@ -134,28 +62,22 @@ namespace WPF_TestProject2.ViewModels
             {
                 _panelY = value;
                 OnPropertyChanged(nameof(PanelY));
-                GetCMYK();
-                GetHSL();
+                if (ColorSchemeDialog is CMYK_DialogViewModel)
+                    GetCMYK();
+                else
+                    GetHSL();
             }
         }
 
-        //private double _lightness;
-        //public double Lightness
-        //{
-        //    get { return ((HSL_DialogViewModel)ColorSchemeDialog).L; }
-        //    set
-        //    {
-        //        ((HSL_DialogViewModel)ColorSchemeDialog).L = (float)value;
-        //        OnPropertyChanged(nameof(Lightness));
-        //        ChangeLightness();
-        //    }
-        //}
+        public Point ImageStart { get; set; }
+
+        public Point ImageEnd { get; set; }
 
         public ColorSchemeViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
 
-            ColorSchemeDialog = new HSL_DialogViewModel(0, 0, 0, NavigateCMYK_Command);//new CMYK_DialogViewModel(0, 0, 0, 0);
+            ColorSchemeDialog = new HSL_DialogViewModel(0, 0, 0, NavigateCMYK_Command);
         }
 
         private void GetCMYK()
@@ -182,8 +104,8 @@ namespace WPF_TestProject2.ViewModels
                 ((HSL_DialogViewModel)ColorSchemeDialog).L = hsl[2];
             }
         }
-
-        private void ChangeLightness()
+       
+        private unsafe void ChangeLightness()
         {
             float lightness = ((HSL_DialogViewModel)ColorSchemeDialog).L;
             float saturation = ((HSL_DialogViewModel)ColorSchemeDialog).S;
@@ -191,42 +113,82 @@ namespace WPF_TestProject2.ViewModels
             if (OriginalBmp != null)
             {
                 Bitmap bmp = new Bitmap(OriginalBmp);
-                Rectangle rect = new Rectangle(0, 0, bmp.Width, bmp.Height);
+                Rectangle rect = new Rectangle(ImageStart.X, ImageStart.Y, ImageEnd.X, ImageEnd.Y); //0, 0, bmp.Width, bmp.Height
                 System.Drawing.Imaging.BitmapData bmpData =
                     bmp.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadWrite,
                     bmp.PixelFormat);
                 IntPtr ptr = bmpData.Scan0;
 
-                // Declare an array to hold the bytes of the bitmap.
-                int bytes = Math.Abs(bmpData.Stride) * bmp.Height;
-                byte[] rgbValues = new byte[bytes];
+                var pt = (byte*)bmpData.Scan0;
+                var bpp = bmpData.Stride / bmp.Width;
 
-                // Copy the RGB values into the array.
-                System.Runtime.InteropServices.Marshal.Copy(ptr, rgbValues, 0, bytes);
                 float[] currRgb;
                 float[] currHsl;
-                
-                for (int counter = 0; counter < rgbValues.Length; counter += 4)
-                {    
-                    currHsl = ColorUtils.rgbToHsl(rgbValues[counter + 2], rgbValues[counter + 1], rgbValues[counter]);
-                    if (currHsl[0] >= 40 && currHsl[0] <= 60)
+
+                // Copy pixels set by Rectangle rect
+                for (var y = 0; y < bmpData.Height; y++)
+                {
+                    var row = pt + (y * bmpData.Stride);
+
+                    for (var x = 0; x < bmpData.Width; x++)
                     {
-                        currHsl[1] *= saturation >= 0.5 ? (float)saturation + 0.5f : (float)saturation;
-                        currHsl[2] *= lightness >= 0.5 ? (float)lightness + 0.5f : (float)lightness;
+                        var pixel = row + x * bpp;
+
+                        currHsl = ColorUtils.rgbToHsl(pixel[2], pixel[1], pixel[0]);
+                        if (currHsl[0] >= 40 && currHsl[0] <= 60)
+                        {
+                            currHsl[1] *= saturation >= 0.5 ? (float)saturation + 0.5f : (float)saturation;
+                            currHsl[2] *= lightness >= 0.5 ? (float)lightness + 0.5f : (float)lightness;
+                        }
+
+                        if (currHsl[2] > 1.0f)
+                            currHsl[2] = 1.0f;
+                        if (currHsl[1] > 1.0f)
+                            currHsl[1] = 1.0f;
+
+                        currRgb = ColorUtils.hslToRgb(currHsl[0], currHsl[1], currHsl[2]);
+                        pixel[0] = (byte)Math.Round(currRgb[2] * 255);
+                        pixel[1] = (byte)Math.Round(currRgb[1] * 255);
+                        pixel[2] = (byte)Math.Round(currRgb[0] * 255);
+
+                        //for (var bit = 0; bit < bpp; bit++)
+                        //{
+                        //    var pixelComponent = pixel[bit];
+                        //}
                     }
-
-                    if (currHsl[2] > 1.0f)
-                        currHsl[2] = 1.0f;
-                    if (currHsl[1] > 1.0f)
-                        currHsl[1] = 1.0f;
-
-                    currRgb = ColorUtils.hslToRgb(currHsl[0], currHsl[1], currHsl[2]);
-                    rgbValues[counter] = (byte)Math.Round(currRgb[2] * 255);
-                    rgbValues[counter+1] = (byte)Math.Round(currRgb[1] * 255);
-                    rgbValues[counter+2] = (byte)Math.Round(currRgb[0] * 255);
                 }
-                
-                System.Runtime.InteropServices.Marshal.Copy(rgbValues, 0, ptr, bytes);
+
+
+                //// Declare an array to hold the bytes of the bitmap.
+                //int bytes = Math.Abs(bmpData.Stride) * bmp.Height;
+                //byte[] rgbValues = new byte[bytes];
+
+                //// Copy the RGB values into the array.
+                //System.Runtime.InteropServices.Marshal.Copy(ptr, rgbValues, 0, bytes);
+                //float[] currRgb;
+                //float[] currHsl;
+
+                //for (int counter = 0; counter < rgbValues.Length; counter += 4)
+                //{    
+                //    currHsl = ColorUtils.rgbToHsl(rgbValues[counter + 2], rgbValues[counter + 1], rgbValues[counter]);
+                //    if (currHsl[0] >= 40 && currHsl[0] <= 60)
+                //    {
+                //        currHsl[1] *= saturation >= 0.5 ? (float)saturation + 0.5f : (float)saturation;
+                //        currHsl[2] *= lightness >= 0.5 ? (float)lightness + 0.5f : (float)lightness;
+                //    }
+
+                //    if (currHsl[2] > 1.0f)
+                //        currHsl[2] = 1.0f;
+                //    if (currHsl[1] > 1.0f)
+                //        currHsl[1] = 1.0f;
+
+                //    currRgb = ColorUtils.hslToRgb(currHsl[0], currHsl[1], currHsl[2]);
+                //    rgbValues[counter] = (byte)Math.Round(currRgb[2] * 255);
+                //    rgbValues[counter+1] = (byte)Math.Round(currRgb[1] * 255);
+                //    rgbValues[counter+2] = (byte)Math.Round(currRgb[0] * 255);
+                //}
+
+                //System.Runtime.InteropServices.Marshal.Copy(rgbValues, 0, ptr, bytes);
                 bmp.UnlockBits(bmpData);
                 ChangedBmp = bmp;
             }
@@ -257,7 +219,7 @@ namespace WPF_TestProject2.ViewModels
         }
 
         /// <summary>
-        /// /////
+        /// Loads image to be changed
         /// </summary>
         private DelegateCommand _loadImageCommand;
 
@@ -284,8 +246,10 @@ namespace WPF_TestProject2.ViewModels
                 string selectedFileName = dlg.FileName;
                 OriginalBmp = new Bitmap(selectedFileName);
                 ChangedBmp = OriginalBmp;
-            }
 
+                ImageEnd = new Point(OriginalBmp.Width, OriginalBmp.Height);
+                OnPropertyChanged(nameof(ImageEnd));
+            }
         }
 
         /// <summary>
@@ -401,6 +365,29 @@ namespace WPF_TestProject2.ViewModels
         public void Apply()
         {
             ChangeLightness();
+        }
+
+        /// <summary>
+        /// copy Fractal image to clipboard command
+        /// <summary>
+        private DelegateCommand _copyImageToClipboardCommand;
+
+        public ICommand CopyImageToClipboardCommand
+        {
+            get
+            {
+                if (_copyImageToClipboardCommand == null)
+                {
+                    _copyImageToClipboardCommand = new DelegateCommand(() => 
+                    CopyImageToClipboard(GraphicsUtils.ConvertToWriteableBitmap(ChangedBmp)));
+                }
+                return _copyImageToClipboardCommand;
+            }
+        }
+
+        public void CopyImageToClipboard(WriteableBitmap bmp)
+        {
+            System.Windows.Clipboard.SetImage(bmp);
         }
         #endregion
     }
