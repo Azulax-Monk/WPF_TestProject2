@@ -41,8 +41,18 @@ namespace WPF_TestProject2.Views
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             ColorSchemeViewModel vm = (ColorSchemeViewModel)this.DataContext;
-            vm.CanvasHeight = canvas.ActualHeight;
-            vm.CanvasWidth = canvas.ActualWidth;
+            var selectionRect = new Rect(selectionRectangle.RenderSize);
+
+            var sourceRect = selectionRectangle.TransformToVisual(OrigImage)
+                                          .TransformBounds(selectionRect);
+
+            var xMultiplier = OrigImage.Source.Width / OrigImage.ActualWidth;
+            var yMultiplier = OrigImage.Source.Height / OrigImage.ActualHeight;
+
+            sourceRect.Scale(xMultiplier, yMultiplier);
+            vm.ImageStart = new System.Drawing.Point((int)sourceRect.X, (int)sourceRect.Y);
+            vm.ImageEnd = new System.Drawing.Point((int)sourceRect.Width, (int)sourceRect.Height);
+
         }
     }
 }

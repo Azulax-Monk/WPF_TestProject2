@@ -61,8 +61,7 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Column="0"  Grid.Row="0" Margin="10">Original image:</Label>
                 <Canvas Grid.Column="0" Grid.Row="1" Margin ="10" Name="canvas" MouseLeftButtonDown="Canvas_MouseLeftButtonDown"
-                           MouseMove="Canvas_MouseMove" 
-                        Width="{Binding Path = CanvasWidth, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
+                           MouseMove="Canvas_MouseMove">
                     <Image x:Name="OrigImage" RenderTransformOrigin="0, 0" Canvas.Left="0" Canvas.Top="0" Source="{Binding OriginalBmp, Converter={StaticResource ImageSourceConverter}}"
                        Width="{Binding ElementName=canvas, Path=ActualWidth}"
                        Height="{Binding ElementName=canvas, Path=ActualHeight}" >
@@ -74,11 +73,7 @@
                    StrokeThickness="1"
                    Stroke="LightBlue"
                    Fill="#220000FF"
-                   Visibility="Collapsed" 
-                               Canvas.Left="{Binding Path=LeftOffset, Mode=TwoWay}"
-           Canvas.Top="{Binding Path=TopOffset, Mode=TwoWay}"
-           Width="{Binding Path=SelectedWidth, Mode=TwoWay}"
-           Height="{Binding Path=SelectedHeight, Mode=TwoWay}"/>
+                   Visibility="Collapsed"/>
                 </Canvas>
                 <Canvas Grid.Column="1" Grid.Row="1" Margin ="10" Name="selectedCanvas">
                     <Image  RenderTransformOrigin="0, 0"   Width="{Binding ElementName=canvas, Path=ActualWidth}"
@@ -116,7 +111,7 @@
                     VerticalAlignment="Center"/>
                 <TextBox
                     Grid.Column="1"
-                    Text="{Binding ImageStart, Mode=TwoWay}" 
+                    Text="{Binding ImageStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                      Margin="5, 20"/>
 
                 <Label 
@@ -126,7 +121,7 @@
                     VerticalAlignment="Center"/>
                 <TextBox
                     Grid.Column="3"
-                    Text="{Binding ImageEnd, Mode=TwoWay}"
+                    Text="{Binding ImageEnd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Margin="5, 20"/>
             </Grid>
 

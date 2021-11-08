@@ -68,10 +68,27 @@ namespace WPF_TestProject2.ViewModels
                     GetHSL();
             }
         }
+        private Point _imageStart;
+        public Point ImageStart 
+        { get { return _imageStart; }
+            set
+            {
+                _imageStart = value;
+                OnPropertyChanged(nameof(ImageStart));
+            } 
+        }
 
-        public Point ImageStart { get; set; }
-
-        public Point ImageEnd { get; set; }
+        private Point _imageEnd;
+    
+        public Point ImageEnd
+        {
+            get { return _imageEnd; }
+            set
+            {
+                _imageEnd = value;
+                OnPropertyChanged(nameof(ImageEnd));
+            }
+        }
 
         public ColorSchemeViewModel(NavigationStore navigationStore)
         {
