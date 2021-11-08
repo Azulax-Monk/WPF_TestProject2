@@ -13,6 +13,7 @@
     <UserControl.Resources>
         <converters:ImageSourceConverter x:Key="ImageSourceConverter"/>
         <converters:CMYKConverter x:Key="CMYKConverter"/>
+        <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
         <Style TargetType="Label">
             <Setter Property="FontSize" Value="16"/>
             
@@ -59,14 +60,32 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <Label Grid.Column="0"  Grid.Row="0" Margin="10">Original image:</Label>
-                <Image Grid.Column="0" Grid.Row="1" Source="{Binding OriginalBmp, Converter={StaticResource ImageSourceConverter}}"
-                       Margin="10" Stretch="Uniform" StretchDirection="DownOnly">
+                <Canvas Grid.Column="0" Grid.Row="1" Margin ="10" Name="canvas" MouseLeftButtonDown="Canvas_MouseLeftButtonDown"
+                           MouseMove="Canvas_MouseMove" 
+                        Width="{Binding Path = CanvasWidth, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
+                    <Image x:Name="OrigImage" RenderTransformOrigin="0, 0" Canvas.Left="0" Canvas.Top="0" Source="{Binding OriginalBmp, Converter={StaticResource ImageSourceConverter}}"
+                       Width="{Binding ElementName=canvas, Path=ActualWidth}"
+                       Height="{Binding ElementName=canvas, Path=ActualHeight}" >
                     <i:Interaction.Behaviors>
                         <classes:MouseBehaviour MouseX="{Binding PanelX, Mode=OneWayToSource}" MouseY="{Binding PanelY, Mode=OneWayToSource}" />
                     </i:Interaction.Behaviors>
                 </Image>
-                <Image Grid.Column="1" Grid.Row="1" Margin="10" Stretch="Uniform" StretchDirection="DownOnly"
+                    <Rectangle x:Name="selectionRectangle"
+                   StrokeThickness="1"
+                   Stroke="LightBlue"
+                   Fill="#220000FF"
+                   Visibility="Collapsed" 
+                               Canvas.Left="{Binding Path=LeftOffset, Mode=TwoWay}"
+           Canvas.Top="{Binding Path=TopOffset, Mode=TwoWay}"
+           Width="{Binding Path=SelectedWidth, Mode=TwoWay}"
+           Height="{Binding Path=SelectedHeight, Mode=TwoWay}"/>
+                </Canvas>
+                <Canvas Grid.Column="1" Grid.Row="1" Margin ="10" Name="selectedCanvas">
+                    <Image  RenderTransformOrigin="0, 0"   Width="{Binding ElementName=canvas, Path=ActualWidth}"
+                       Height="{Binding ElementName=canvas, Path=ActualHeight}"
+                            Canvas.Left="0" Canvas.Top="0"
                        Source="{Binding ChangedBmp,Converter={StaticResource ImageSourceConverter}}"/>
+                </Canvas>
             </Grid>
         </Grid>
 
@@ -125,7 +144,7 @@
                     Content="Apply" 
                     BorderThickness="1" 
                     BorderBrush="Black" 
-                    Margin="5, 15" />
+                    Margin="5, 15" Click="Button_Click" />
             </Grid>
 
             <Grid Grid.Row="3">
