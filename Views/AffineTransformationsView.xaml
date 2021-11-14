@@ -39,7 +39,12 @@
                         Command="{Binding NavigateInfoPageCommand}" Margin="20, 10" Background="#CFE1B9">Info</Button>
                 <TextBlock FontSize="16" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#CFE1B9">Affine transformation</TextBlock>
             </Grid>
-            <Grid Grid.Row="1" Background="#CFE1B9" Margin="10, 5"></Grid>
+            <Grid Grid.Row="1" Background="#CFE1B9" Margin="10, 5">
+                <ContentControl>
+                    <ContentPresenter Content="{Binding canvas}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </ContentControl>
+                
+            </Grid>
         </Grid>
         <Grid Grid.Column="1" Background="#CFE1B9">
             <Grid.RowDefinitions>
