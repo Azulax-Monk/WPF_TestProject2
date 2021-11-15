@@ -132,6 +132,16 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
+
+                <Button 
+                    Grid.Column="2"
+                    Command="{Binding TransformCommand}"
+                    Background="#87986A"
+                    Content="Transform" 
+                    BorderThickness="1" 
+                    BorderBrush="Black" 
+                    Margin="5, 15" />
+
                 <Button 
                     Grid.Column="3"
                     Command="{Binding ApplyCommand}"

@@ -132,5 +132,38 @@ namespace WPF_TestProject2.Classes
 
             return new Point((int)pointArray[0, 0], (int)pointArray[1, 0]);
         }
+
+        public static System.Windows.Point Transform(System.Windows.Point p, System.Windows.Point origin, AffineMatrix rule)
+        {
+            double[,] pointArray = new double[,] { { p.X }, { p.Y }, { 1.0 } };
+            double angle = Math.Round(GraphicsUtils.GetAngle(origin, p));
+            double angleRadians = Math.PI / 180 * angle;
+
+            AffineMatrix translateToOrigin =
+                new AffineMatrix(1, 0, 0, 1, -origin.X, -origin.Y);
+            AffineMatrix translateBack =
+                new AffineMatrix(1, 0, 0, 1, origin.X, origin.Y);
+            AffineMatrix rotateToXAxis =
+                new AffineMatrix(Math.Cos(angleRadians), -Math.Sin(angleRadians), Math.Sin(angleRadians), Math.Cos(angleRadians), 0, 0);
+            AffineMatrix rotateBack =
+                new AffineMatrix(Math.Cos(-angleRadians), -Math.Sin(-angleRadians), Math.Sin(-angleRadians), Math.Cos(-angleRadians), 0, 0);
+
+            // Translate to origin
+            //pointArray = DotProduct(translateToOrigin.ToArray(), pointArray);
+
+            // Rotate with respect to vector => p - origin
+            //pointArray = DotProduct(rotateToXAxis.ToArray(), pointArray);
+
+            // Apply affine 'rule' transformation
+            pointArray = DotProduct(rule.ToArray(), pointArray);
+
+            // Rotate back
+            //pointArray = DotProduct(rotateBack.ToArray(), pointArray);
+
+            // Translate back
+            //pointArray = DotProduct(translateBack.ToArray(), pointArray);
+
+            return new System.Windows.Point(pointArray[0, 0], pointArray[1, 0]);
+        }
     }
 }
