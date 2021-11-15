@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="WPF_TestProject2.Views.TransformationsInfoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPF_TestProject2.Views"
+             mc:Ignorable="d"
+    d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="20, 10"/>
+            <Setter Property="TextAlignment" Value="Justify"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid Background="#ECECEC">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Background="#CFE1B9"/>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="An affine transformation is a type of geometric transformation which preserves collinearity (if a collectionof points sits on a line before the transformation, they all sit on a line afterwards)and the ratios of distances between points on a line. Types of affine transformations include translation(moving a figure), scaling (increasing or decreasing the size of a figure), and rotation (turning a figure about a point)."></TextBlock>
+        </Grid>
+    </Grid>
+   
+</UserControl>
