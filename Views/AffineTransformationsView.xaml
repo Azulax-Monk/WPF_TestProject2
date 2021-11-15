@@ -40,8 +40,8 @@
                 <TextBlock FontSize="16" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#CFE1B9">Affine transformation</TextBlock>
             </Grid>
             <Grid Grid.Row="1" Background="#CFE1B9" Margin="10, 5">
-                <ContentControl>
-                    <ContentPresenter Content="{Binding canvas}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <ContentControl ClipToBounds="True">
+                    <ContentPresenter Content="{Binding Canvas}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                 </ContentControl>
                 
             </Grid>
@@ -82,13 +82,13 @@
                     </Grid.ColumnDefinitions>
                     <TextBox 
                         Grid.Column="0"
-                        Text="{Binding P1}" />
+                        Text="{Binding Parallelogram[0]}" />
                     <TextBox 
                         Grid.Column="1"
-                        Text="{Binding P2}" />
+                        Text="{Binding Parallelogram[1]}" />
                     <TextBox 
                         Grid.Column="2"
-                        Text="{Binding P3}" />
+                        Text="{Binding Parallelogram[2]}" />
                 </Grid>
             </Grid>
             
@@ -118,10 +118,10 @@
 
                     <TextBox 
                         Grid.Column="0" 
-                        Text="{Binding A}" />
+                        Text="{Binding Line[0]}" />
                     <TextBox 
                         Grid.Column="1"
-                        Text="{Binding B}" />
+                        Text="{Binding Line[1]}" />
                 </Grid>
             </Grid>
 

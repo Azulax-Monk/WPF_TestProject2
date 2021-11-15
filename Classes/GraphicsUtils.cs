@@ -121,6 +121,15 @@ namespace WPF_TestProject2.Classes
             return true;
         }
 
+        public static bool IsPointOnLine(System.Windows.Point lStart, System.Windows.Point lEnd, System.Windows.Point p)
+        {
+            Point s = new Point((int)lStart.X, (int)lStart.Y);
+            Point e = new Point((int)lEnd.X, (int)lEnd.Y);
+            Point newP = new Point((int)p.X, (int)p.Y);
+
+            return IsPointOnLine(s, e, newP);
+        }
+
         public static bool IsPointOnLine(Point lStart, Point lEnd, Point p)
         {
             var line = GetPointsOnLine(lStart, lEnd);
