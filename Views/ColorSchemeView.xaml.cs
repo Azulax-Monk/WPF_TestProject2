@@ -52,7 +52,6 @@ namespace WPF_TestProject2.Views
             sourceRect.Scale(xMultiplier, yMultiplier);
             vm.ImageStart = new System.Drawing.Point((int)sourceRect.X, (int)sourceRect.Y);
             vm.ImageEnd = new System.Drawing.Point((int)sourceRect.Width, (int)sourceRect.Height);
-
         }
     }
 }

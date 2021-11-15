@@ -70,7 +70,8 @@ namespace WPF_TestProject2.ViewModels
         }
         private Point _imageStart;
         public Point ImageStart 
-        { get { return _imageStart; }
+        { 
+            get { return _imageStart; }
             set
             {
                 _imageStart = value;
@@ -79,7 +80,6 @@ namespace WPF_TestProject2.ViewModels
         }
 
         private Point _imageEnd;
-    
         public Point ImageEnd
         {
             get { return _imageEnd; }
@@ -130,7 +130,7 @@ namespace WPF_TestProject2.ViewModels
             if (OriginalBmp != null)
             {
                 Bitmap bmp = new Bitmap(OriginalBmp);
-                Rectangle rect = new Rectangle(ImageStart.X, ImageStart.Y, ImageEnd.X, ImageEnd.Y); //0, 0, bmp.Width, bmp.Height
+                Rectangle rect = new Rectangle(ImageStart.X, ImageStart.Y, ImageEnd.X, ImageEnd.Y);
                 System.Drawing.Imaging.BitmapData bmpData =
                     bmp.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadWrite,
                     bmp.PixelFormat);
@@ -167,45 +167,8 @@ namespace WPF_TestProject2.ViewModels
                         pixel[0] = (byte)Math.Round(currRgb[2] * 255);
                         pixel[1] = (byte)Math.Round(currRgb[1] * 255);
                         pixel[2] = (byte)Math.Round(currRgb[0] * 255);
-
-                        //for (var bit = 0; bit < bpp; bit++)
-                        //{
-                        //    var pixelComponent = pixel[bit];
-                        //}
                     }
                 }
-
-
-                //// Declare an array to hold the bytes of the bitmap.
-                //int bytes = Math.Abs(bmpData.Stride) * bmp.Height;
-                //byte[] rgbValues = new byte[bytes];
-
-                //// Copy the RGB values into the array.
-                //System.Runtime.InteropServices.Marshal.Copy(ptr, rgbValues, 0, bytes);
-                //float[] currRgb;
-                //float[] currHsl;
-
-                //for (int counter = 0; counter < rgbValues.Length; counter += 4)
-                //{    
-                //    currHsl = ColorUtils.rgbToHsl(rgbValues[counter + 2], rgbValues[counter + 1], rgbValues[counter]);
-                //    if (currHsl[0] >= 40 && currHsl[0] <= 60)
-                //    {
-                //        currHsl[1] *= saturation >= 0.5 ? (float)saturation + 0.5f : (float)saturation;
-                //        currHsl[2] *= lightness >= 0.5 ? (float)lightness + 0.5f : (float)lightness;
-                //    }
-
-                //    if (currHsl[2] > 1.0f)
-                //        currHsl[2] = 1.0f;
-                //    if (currHsl[1] > 1.0f)
-                //        currHsl[1] = 1.0f;
-
-                //    currRgb = ColorUtils.hslToRgb(currHsl[0], currHsl[1], currHsl[2]);
-                //    rgbValues[counter] = (byte)Math.Round(currRgb[2] * 255);
-                //    rgbValues[counter+1] = (byte)Math.Round(currRgb[1] * 255);
-                //    rgbValues[counter+2] = (byte)Math.Round(currRgb[0] * 255);
-                //}
-
-                //System.Runtime.InteropServices.Marshal.Copy(rgbValues, 0, ptr, bytes);
                 bmp.UnlockBits(bmpData);
                 ChangedBmp = bmp;
             }

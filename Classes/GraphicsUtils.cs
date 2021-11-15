@@ -120,6 +120,15 @@ namespace WPF_TestProject2.Classes
             }
             return true;
         }
+
+        public static bool IsPointOnLine(Point lStart, Point lEnd, Point p)
+        {
+            var line = GetPointsOnLine(lStart, lEnd);
+            if (line.Contains(p))
+                return true;
+            else
+                return false;
+        }
     
         public static WriteableBitmap ConvertToWriteableBitmap(Bitmap bmp)
         {

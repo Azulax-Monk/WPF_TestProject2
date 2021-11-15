@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using WPF_TestProject2.Classes;
 using WPF_TestProject2.Commands;
 using WPF_TestProject2.Stores;
+
 
 namespace WPF_TestProject2.ViewModels
 {
@@ -16,10 +19,21 @@ namespace WPF_TestProject2.ViewModels
 
         private System.Windows.Media.Imaging.WriteableBitmap _transformationsBmp;
 
+        public Point P1 { get; set; }
+
+        public Point P2 { get; set; }
+
+        public Point P3 { get; set; }
+
+        public Point P4 { get; set; }
+
+        public double A { get; set; }
+
+        public double B { get; set; }
+
         public AffineTransformationsViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
-
         }
 
         #region Commands
@@ -111,6 +125,65 @@ namespace WPF_TestProject2.ViewModels
         public void Reset()
         {
             _navigationStore.CurrentViewModel = new AffineTransformationsViewModel(_navigationStore);
+        }
+
+        /// <summary>
+        /// Apply paralelogram settings and draw it
+        /// </summary>
+        private DelegateCommand _applyCommand;
+
+        public ICommand ApplyCommand
+        {
+            get
+            {
+                if (_applyCommand == null)
+                {
+                    _applyCommand = new DelegateCommand(Apply);
+                }
+                return _applyCommand;
+            }
+        }
+
+        public void Apply()
+        {
+            if (ParallelogramExists(P1, P2, P3))
+            {
+                P4 = FindLastEdge(P1, P2, P3);
+            }
+        }
+
+        private bool ParallelogramExists(Point p1, Point p2, Point p3)
+        {
+            if (GraphicsUtils.IsPointOnLine(p1, p2, p3) ||
+                GraphicsUtils.IsPointOnLine(p1, p3, p2) ||
+                GraphicsUtils.IsPointOnLine(p1, p3, p1))
+                return false;
+            else
+                return true;
+        }
+
+        private Point FindLastEdge(Point p1, Point p2, Point p3)
+        {
+            Point p4 = new Point(0, 0);
+
+            if(p2.X > p1.X && p3.X > p1.X)
+            {
+                p4.X = p2.X + p3.X;
+            }
+            else if (p2.X < p1.X && p3.X > p1.X)
+            {
+                p4.X = p3.X - (p1.X - p2.X);
+            }
+            else if (p2.X > p1.X && p3.X < p1.X)
+            {
+                p4.X = p2.X - (p1.X - p3.X);
+            }
+            else if (p2.X < p1.X && p3.X < p1.X)
+            {
+
+            }
+
+            return p4;
         }
         #endregion
     }
