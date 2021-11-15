@@ -28,8 +28,8 @@
             <DataTemplate DataType="{x:Type viewmodels:BarnsleyFernFractalViewModel}">
                 <views:BarnsleyFernFractalView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:InfoViewModel}">
-                <views:InfoView />
+            <DataTemplate DataType="{x:Type viewmodels:FractalsInfoViewModel}">
+                <views:FractalsInfoView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:ColorSchemeViewModel}">
                 <views:ColorSchemeView />
@@ -40,9 +40,13 @@
             <DataTemplate DataType="{x:Type viewmodels:HSL_DialogViewModel}">
                 <views:HSL_DialogView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:ColorInfoViewModel}">
-                <views:ColorInfoView />
+            <DataTemplate DataType="{x:Type viewmodels:TransformationsInfoViewModel}">
+                <views:TransformationsInfoView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:ColorsInfoViewModel}">
+                <views:ColorsInfoView/>
+            </DataTemplate>
+
         </ContentControl.Resources>
     </ContentControl>
 </Window>

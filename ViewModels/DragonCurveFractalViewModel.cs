@@ -264,7 +264,7 @@ namespace WPF_TestProject2.ViewModels
 
         public void NavigateInfoPage()
         {
-            _navigationStore.CurrentViewModel = new InfoViewModel(_navigationStore, this);
+            _navigationStore.CurrentViewModel = new FractalsInfoViewModel(_navigationStore, this);
         }
 
         /// <summary>

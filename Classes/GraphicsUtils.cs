@@ -120,7 +120,6 @@ namespace WPF_TestProject2.Classes
             }
             return true;
         }
-
         public static bool IsPointOnLine(System.Windows.Point lStart, System.Windows.Point lEnd, System.Windows.Point p)
         {
             Point s = new Point((int)lStart.X, (int)lStart.Y);
@@ -138,7 +137,7 @@ namespace WPF_TestProject2.Classes
             else
                 return false;
         }
-    
+
         public static WriteableBitmap ConvertToWriteableBitmap(Bitmap bmp)
         {
             if (bmp == null)

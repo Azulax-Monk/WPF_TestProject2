@@ -16,13 +16,18 @@ using System.Windows.Shapes;
 namespace WPF_TestProject2.Views
 {
     /// <summary>
-    /// Interaction logic for ColorInfoView.xaml
+    /// Interaction logic for ColorsInfoView.xaml
     /// </summary>
-    public partial class ColorInfoView : UserControl
+    public partial class ColorsInfoView : UserControl
     {
-        public ColorInfoView()
+        public ColorsInfoView()
         {
             InitializeComponent();
         }
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            System.Diagnostics.Process.Start(e.Uri.ToString());
+        }
+
     }
 }

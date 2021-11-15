@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="WPF_TestProject2.Views.ColorsInfoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPF_TestProject2.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+            <Style TargetType="TextBlock">
+                <Setter Property="Margin" Value="20, 10"/>
+                <Setter Property="TextAlignment" Value="Justify"/>
+                <Setter Property="TextWrapping" Value="Wrap"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="14"/>
+            </Style>
+            <Style TargetType="Image">
+                <Setter Property="MaxWidth" Value ="200"/>
+                <Setter Property="MaxHeight" Value="200"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+        </UserControl.Resources>
+    <ScrollViewer VerticalScrollBarVisibility="Visible">
+        <Grid Background="#ECECEC">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Column="0" Grid.RowSpan="5" Background="#CFE1B9"/>
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Button Height="30" Width="30" Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Top"
+                        Command="{Binding BackCommand}">
+                    <Image Source="/Resources/BackButton.png" />
+                </Button>
+                <TextBlock Text="Color Models" FontSize="24" TextAlignment="Center" FontFamily="Constantia" FontWeight="DemiBold"/>
+            </Grid>
+        <TextBlock Grid.Row="0" Grid.Column="1">A color model is a way of specifying or describing a color numerically; common examples include RGB, HSV and CMYK. There are many types of color models that use different mathematical systems to represent colors, although most color models typically use a combination of three or four values or color components.</TextBlock>
+        <Image Source="/Resources/RGB .png" Grid.Row="1" Grid.Column="0"/>
+            <TextBlock Grid.Row="1" Grid.Column="1">The <Bold>RGB</Bold> model is used when working with digital screen based designs, such as those viewed on a computer screen or phone display. In the RGB color model, a value between 0 and 255 is assigned to each of the primary colors, Red, Green and Blue, where 0 is dark and 255 is bright. The RGB color model is an additive color system, which means colors get lighter when mixed. As each component of light is mixed in, the combination becomes a new color. Red, green and blue are the three additive primaries. You can create any color within the constraint of the device using different combinations of the additive primaries. When you mix all three together in balanced amounts, you get white.</TextBlock>
+            <Image Source="/Resources/CMYK.png" Width="140" Grid.Row="2" Grid.Column="0"/>
+            <TextBlock Grid.Row="2" Grid.Column="1">The <Bold>CMYK</Bold> color model describes colors based on their percentage of Cyan, Magenta, Yellow and Black. Many computer printers and traditional "four-color" printing presses use the CMYK model. In theory, you can mix any reflective color by mixing a combination of cyan, magenta and yellow alone. In the real world, however, the inks that printers use are not perfect. This becomes most obvious when you mix all three equally to make black. The color that results is muddy brown. CMYK is a subtractive color model, which means colors get darker when mixed. Each of the mixed paints or inks absorbs different components of the light. If the right combination of paints is mixed together, all of the components of light are absorbed and the result is a near black.</TextBlock>
+            <Image Source="/Resources/HSL.png" Width="180" Grid.Row="3" Grid.Column="0"/>
+            <TextBlock Grid.Row="3" Grid.Column="1">The <Bold>HSL</Bold> is alternative representation of the RGB color model. The hue determines which basic color it is. Red, green, blue, yellow, orange, etc. are different hues. Saturation and luminance tell more about the variations of these basic colors. Saturation is the vividness (or "purity") of the color, i.e., how much of the color's complement is mixed in. Finally, lightness refers to the "whiteness" of the color. It may also be termed "brightness," "value" or "intensity."Other models related to the HSL model are the HSB (Hue, Saturation, Brightness) and HSI (Hue, Saturation, Intensity) models.</TextBlock>
+
+
+            <Grid Grid.Row="4" Grid.Column="1">
+                <StackPanel>
+                    <TextBlock FontWeight="DemiBold">Useful links:</TextBlock>
+                    <TextBlock><Hyperlink NavigateUri="https://convertacolor.com/" RequestNavigate="Hyperlink_RequestNavigate">Color models converter</Hyperlink></TextBlock>
+                    <TextBlock><Hyperlink NavigateUri="https://vns.lpnu.ua/mod/page/view.php?id=264173" RequestNavigate="Hyperlink_RequestNavigate">Article on color models</Hyperlink></TextBlock>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

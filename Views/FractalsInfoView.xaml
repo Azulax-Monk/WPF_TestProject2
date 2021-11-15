@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="WPF_TestProject2.Views.ColorInfoView"
+﻿<UserControl x:Class="WPF_TestProject2.Views.FractalsInfoView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -22,6 +22,7 @@
 
         <Grid Grid.Column="0" Background="#CFE1B9">
             <Grid.RowDefinitions>
+                <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
@@ -63,9 +64,9 @@ The Koch snowflake can be built up iteratively, in a sequence of stages. The fir
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="References:"/>
                     <TextBlock Grid.Column="1">
-                        <!--<Hyperlink NavigateUri="https://en.wikipedia.org/wiki/Koch_snowflake" RequestNavigate="Hyperlink_RequestNavigate">
+                        <Hyperlink NavigateUri="https://en.wikipedia.org/wiki/Koch_snowflake" RequestNavigate="Hyperlink_RequestNavigate">
                             Wiki article
-                        </Hyperlink>-->
+                        </Hyperlink>
                     </TextBlock>
                 </Grid>
             </Grid>
@@ -82,9 +83,28 @@ The Koch snowflake can be built up iteratively, in a sequence of stages. The fir
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="References:"/>
                     <TextBlock Grid.Column="1">
-                        <!--<Hyperlink NavigateUri="https://en.wikipedia.org/wiki/Dragon_curve" RequestNavigate="Hyperlink_RequestNavigate">
+                        <Hyperlink NavigateUri="https://en.wikipedia.org/wiki/Dragon_curve" RequestNavigate="Hyperlink_RequestNavigate">
                             Wiki article
-                        </Hyperlink>-->
+                        </Hyperlink>
+                    </TextBlock>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Barnsley fern - is one of the basic examples of fractals. Fractals are infinitely complex patterns that are self-similar across different scales, and are created by repeating a simple process over and over in a loop. The fern code developed by Barnsley is an example of an iterated function system (IFS) used to create a fractal."/>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="References:"/>
+                    <TextBlock Grid.Column="1">
+                        <Hyperlink NavigateUri="https://en.wikipedia.org/wiki/Barnsley_fern" RequestNavigate="Hyperlink_RequestNavigate">
+                            Wiki article
+                        </Hyperlink>
                     </TextBlock>
                 </Grid>
             </Grid>

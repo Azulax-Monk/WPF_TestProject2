@@ -18,9 +18,9 @@ namespace WPF_TestProject2.Views
     /// <summary>
     /// Interaction logic for InfoView.xaml
     /// </summary>
-    public partial class InfoView : UserControl
+    public partial class FractalsInfoView : UserControl
     {
-        public InfoView()
+        public FractalsInfoView()
         {
             InitializeComponent();
         }

@@ -83,8 +83,9 @@
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="ViewModels\AffineTransformationsViewModel.cs" />
     <Compile Include="ViewModels\CMYK_DialogViewModel.cs" />
-    <Compile Include="ViewModels\ColorInfoViewModel.cs" />
     <Compile Include="ViewModels\ColorSchemeViewModel.cs" />
+    <Compile Include="ViewModels\ColorsInfoViewModel.cs" />
+    <Compile Include="ViewModels\FractalsInfoViewModel.cs" />
     <Compile Include="ViewModels\HSL_DialogViewModel.cs" />
     <Compile Include="ViewModels\InfoViewModel.cs" />
     <Compile Include="ViewModels\BarnsleyFernFractalViewModel.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="ViewModels\KochSnowflakeFractalViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />
+    <Compile Include="ViewModels\TransformationsInfoViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\AffineTransformationsView.xaml.cs">
       <DependentUpon>AffineTransformationsView.xaml</DependentUpon>
@@ -102,11 +104,11 @@
     <Compile Include="Views\CMYK_DialogView.xaml.cs">
       <DependentUpon>CMYK_DialogView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ColorInfoView.xaml.cs">
-      <DependentUpon>ColorInfoView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ColorSchemeView.xaml.cs">
       <DependentUpon>ColorSchemeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ColorsInfoView.xaml.cs">
+      <DependentUpon>ColorsInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DragonCurveFractalView.xaml.cs">
       <DependentUpon>DragonCurveFractalView.xaml</DependentUpon>
@@ -114,8 +116,8 @@
     <Compile Include="Views\HSL_DialogView.xaml.cs">
       <DependentUpon>HSL_DialogView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\InfoView.xaml.cs">
-      <DependentUpon>InfoView.xaml</DependentUpon>
+    <Compile Include="Views\FractalsInfoView.xaml.cs">
+      <DependentUpon>FractalsInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\KochSnowflakeFractalView.xaml.cs">
       <DependentUpon>KochSnowflakeFractalView.xaml</DependentUpon>
@@ -150,11 +152,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ColorInfoView.xaml">
+    <Page Include="Views\ColorSchemeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ColorSchemeView.xaml">
+    <Page Include="Views\ColorsInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -166,7 +168,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\InfoView.xaml">
+    <Page Include="Views\FractalsInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -220,6 +222,42 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\LoadButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IdentityTransformation.png" />
+    <Resource Include="Resources\ReflectionTransformation.png" />
+    <Resource Include="Resources\RotateTransformation.png" />
+    <Resource Include="Resources\ScaleTransformation.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IdentityMatrix.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\TranslationMatrix.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ReflectionMatrix.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ScaleMatrix.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\RotateMatrix.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BackButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\RGB .png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\CMYK.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\HSL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ColorModels.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

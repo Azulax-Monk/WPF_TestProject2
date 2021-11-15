@@ -17,6 +17,14 @@ namespace WPF_TestProject2.ViewModels
         private int _planeWidth = 500;
         private int _planeHeight = 350; 
         private double _step = 20;
+        public double Step 
+        { get 
+            { return _step; }
+            set 
+            { _step = value;
+                UpdateCoordinateSystem();
+            }
+        }
         private Canvas _canvas;
         public Canvas Canvas
         {
@@ -42,8 +50,8 @@ namespace WPF_TestProject2.ViewModels
                 new Point(2, 1) 
             };
             Line = new ObservableCollection<double>() { 0, 0 };
-            
-            DrawCoordinateSystem();
+
+            UpdateCoordinateSystem();
         }
 
         //draws parallelogram by 4 points
@@ -192,6 +200,11 @@ namespace WPF_TestProject2.ViewModels
             Canvas = canvasTemp;
         }
 
+        private void UpdateCoordinateSystem()
+        {
+            DrawCoordinateSystem();
+            DrawParalellogram();
+        }
         //converts point according to current coordinate system
         private Point ConvertPoint(double step, int xMid, int yMid, Point point)
         {
@@ -293,7 +306,7 @@ namespace WPF_TestProject2.ViewModels
 
         public void NavigateInfoPage()
         {
-            _navigationStore.CurrentViewModel = new InfoViewModel(_navigationStore, this);
+            _navigationStore.CurrentViewModel = new TransformationsInfoViewModel(_navigationStore, this);
         }
 
 

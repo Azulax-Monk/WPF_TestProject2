@@ -12,21 +12,84 @@
             <Setter Property="TextAlignment" Value="Justify"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        <Style TargetType="Image">
+            <Setter Property="MaxWidth" Value ="200"/>
+            <Setter Property="MaxHeight" Value="200"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
     </UserControl.Resources>
-    <Grid Background="#ECECEC">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="2*"/>
-        </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" Background="#CFE1B9"/>
-        <Grid Grid.Column="1">
+    <ScrollViewer VerticalScrollBarVisibility="Visible">
+        <Grid Background="#ECECEC">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="An affine transformation is a type of geometric transformation which preserves collinearity (if a collectionof points sits on a line before the transformation, they all sit on a line afterwards)and the ratios of distances between points on a line. Types of affine transformations include translation(moving a figure), scaling (increasing or decreasing the size of a figure), and rotation (turning a figure about a point)."></TextBlock>
+            <Grid Grid.RowSpan="6" Background="#CFE1B9"/>
+            <Grid Grid.Column="0" >
+                <Button Height="30" Width="30" Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Top"
+                        Command="{Binding BackCommand}"> 
+                    <Image Source="/Resources/BackButton.png" />
+                </Button>
+                <TextBlock Text="Affine Transformations" FontSize="24" TextAlignment="Center" FontFamily="Constantia" FontWeight="DemiBold"/>
+            </Grid>
+            <TextBlock Grid.Row="0" Grid.Column ="1" Text="An affine transformation is a type of geometric transformation which preserves collinearity (if a collectionof points sits on a line before the transformation, they all sit on a line afterwards)and the ratios of distances between points on a line. Types of affine transformations include translation(moving a figure), scaling (increasing or decreasing the size of a figure), and rotation (turning a figure about a point)."></TextBlock>
+            <Image Grid.Column="0" Grid.Row="1" Source="/Resources/IdentityTransformation.png" />
+            <Grid Grid.Column="1" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Height="100" Width="100" Source="/Resources/IdentityMatrix.png" />
+                <TextBlock Grid.Column="1" >An <Bold>identity</Bold> function, also called an identity relation, identity map or identity transformation, is a function that always returns the same value that was used as its argument.</TextBlock>
+            </Grid>
+            <Image Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" Source="/Resources/IdentityTransformation.png"/>
+            <Grid Grid.Column="1" Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Height="100" Width="120" Source="/Resources/TranslationMatrix.png" />
+                <TextBlock Grid.Column="1" >A <Bold>translation</Bold> is a geometric transformation that moves every point of a figure or a space by the same distance in a given direction. A translation can also be interpreted as the addition of a constant vector to every point, or as shifting the origin of the coordinate system.</TextBlock>
+            </Grid>
+            <Image Grid.Column="0" Grid.Row="3" Source="/Resources/ReflectionTransformation.png" />
+            <Grid Grid.Column="1" Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Height="100" Width="120" Source="/Resources/ReflectionMatrix.png" />
+                <TextBlock Grid.Column="1" >A <Bold>reflection</Bold> is a mapping from a Euclidean space to itself that is an isometry with a hyperplane as a set of fixed points; this set is called the axis (in dimension 2) or plane (in dimension 3) of reflection. The image of a figure by a reflection is its mirror image in the axis or plane of reflection.</TextBlock>
+            </Grid>
+            <Image Grid.Column="0" Grid.Row="4" Source="/Resources/ScaleTransformation.png" />
+            <Grid Grid.Column="1" Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Height="120" Width="140" Source="/Resources/ScaleMatrix.png" />
+                <TextBlock Grid.Column="1" >A <Bold>scaling</Bold> is a linear transformation that enlarges (increases) or shrinks (diminishes) objects by a scale factor that is the same in all directions. The result of uniform scaling is similar (in the geometric sense) to the original.</TextBlock>
+            </Grid>
+
+            <Image Grid.Column="0" Grid.Row="5" Source="/Resources/RotateTransformation.png" />
+            <Grid Grid.Column="1" Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Height="120" Width="140" Source="/Resources/RotateMatrix.png" />
+                <TextBlock Grid.Column="1" >A <Bold>rotation</Bold> is the circular movement of an object around an axis of rotation. A rotation operation will shift a point from an initial position to a new position based on a rotation about a given axis. For example a point that currently has an angle of theta between a line drawn from the point back to the origin and a reference axis can be rotated about an axis normal to the plane so that the new position forms a new angle to that reference axis.</TextBlock>
+            </Grid>
         </Grid>
-    </Grid>
-   
+    </ScrollViewer>
 </UserControl>

@@ -39,7 +39,7 @@
                         Command="{Binding NavigateInfoPageCommand}" Margin="20, 10" Background="#CFE1B9">Info</Button>
                 <TextBlock FontSize="16" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#CFE1B9">Affine transformation</TextBlock>
             </Grid>
-            <Grid Grid.Row="1" Background="#CFE1B9" Margin="10, 5">
+            <Grid x:Name="CanvasGrid" Grid.Row="1" Background="#CFE1B9" Margin="10, 5" MouseWheel="GridMouseWheel">
                 <ContentControl ClipToBounds="True">
                     <ContentPresenter Content="{Binding Canvas}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                 </ContentControl>

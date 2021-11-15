@@ -10,8 +10,8 @@ namespace WPF_TestProject2.ViewModels
 {
     class InfoViewModel:ViewModelBase
     {
-        private readonly NavigationStore _navigationStore;
-        private ViewModelBase _previousViewModel;
+        protected readonly NavigationStore _navigationStore;
+        protected ViewModelBase _previousViewModel;
 
         public InfoViewModel(NavigationStore navigationStore, ViewModelBase prevViewModel)
         {
@@ -19,7 +19,7 @@ namespace WPF_TestProject2.ViewModels
             _navigationStore = navigationStore;
         }
 
-        private Command _backCommand;
+        protected Command _backCommand;
         public Command BackCommand
         {
             get
@@ -32,4 +32,6 @@ namespace WPF_TestProject2.ViewModels
             }
         }
     }
+
+
 }

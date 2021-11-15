@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPF_TestProject2.ViewModels;
 
 namespace WPF_TestProject2.Views
 {
@@ -23,6 +24,13 @@ namespace WPF_TestProject2.Views
         public AffineTransformationsView()
         {
             InitializeComponent();
+        }
+
+        private void GridMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            var scale = e.Delta >= 0 ? 1.1 : (1.0 / 1.1);
+            AffineTransformationsViewModel model = (AffineTransformationsViewModel)this.DataContext;
+            model.Step *= scale;
         }
     }
 }
