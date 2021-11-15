@@ -40,7 +40,9 @@
             <DataTemplate DataType="{x:Type viewmodels:HSL_DialogViewModel}">
                 <views:HSL_DialogView />
             </DataTemplate>
-
+            <DataTemplate DataType="{x:Type viewmodels:ColorInfoViewModel}">
+                <views:ColorInfoView />
+            </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>
 </Window>

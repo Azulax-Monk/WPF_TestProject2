@@ -83,6 +83,7 @@
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="ViewModels\AffineTransformationsViewModel.cs" />
     <Compile Include="ViewModels\CMYK_DialogViewModel.cs" />
+    <Compile Include="ViewModels\ColorInfoViewModel.cs" />
     <Compile Include="ViewModels\ColorSchemeViewModel.cs" />
     <Compile Include="ViewModels\HSL_DialogViewModel.cs" />
     <Compile Include="ViewModels\InfoViewModel.cs" />
@@ -100,6 +101,9 @@
     </Compile>
     <Compile Include="Views\CMYK_DialogView.xaml.cs">
       <DependentUpon>CMYK_DialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ColorInfoView.xaml.cs">
+      <DependentUpon>ColorInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ColorSchemeView.xaml.cs">
       <DependentUpon>ColorSchemeView.xaml</DependentUpon>
@@ -143,6 +147,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CMYK_DialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ColorInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
