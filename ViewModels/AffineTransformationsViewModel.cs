@@ -36,14 +36,114 @@ namespace WPF_TestProject2.ViewModels
             Canvas = new Canvas();
             Parallelogram = new ObservableCollection<Point>() 
             { 
-                new Point(-4, -1), 
-                new Point(-2, 3), 
-                new Point(4, 5), 
-                new Point(2, 1) 
+                new Point(0, 0), 
+                new Point(3, 0), 
+                new Point(1, 4), 
+                new Point(-2, 4) 
             };
-            Line = new ObservableCollection<double>() { 0, 0 };
+            Line = new ObservableCollection<double>() { 1, 0 };
             
             DrawCoordinateSystem();
+        }
+
+        private void Transform()
+        {
+            double angle = Math.Atan(Line[0]);
+            // - translate -b
+            // - rotate -angle
+            // - invert y
+            // - rotate angle
+            // - transtlate b
+            AffineTransformation.AffineMatrix translationMatrix =
+                new AffineTransformation.AffineMatrix(
+                    1,
+                    0,
+                    0,
+                    1,
+                    0,
+                    -Line[1]);
+
+            AffineTransformation.AffineMatrix rotationMatrix =
+                new AffineTransformation.AffineMatrix(
+                    Math.Cos(-angle), 
+                    -Math.Sin(-angle), 
+                    Math.Sin(-angle), 
+                    Math.Cos(-angle), 
+                    0, 
+                    0);
+
+            AffineTransformation.AffineMatrix scalingMatrix =
+                new AffineTransformation.AffineMatrix(
+                    1,
+                    0,
+                    0,
+                    -1,
+                    0,
+                    0);
+
+            AffineTransformation.AffineMatrix rotationBackMatrix =
+                new AffineTransformation.AffineMatrix(
+                    Math.Cos(angle),
+                    -Math.Sin(angle),
+                    Math.Sin(angle),
+                    Math.Cos(angle),
+                    0,
+                    0);
+
+            AffineTransformation.AffineMatrix translationBackMatrix =
+            new AffineTransformation.AffineMatrix(
+                1,
+                0,
+                0,
+                1,
+                0,
+                Line[1]);
+
+            Point origin = new Point(0, 0);
+            Point p1 = Parallelogram[0];
+            Point p2 = Parallelogram[1];
+            Point p3 = Parallelogram[2];
+            Point p4 = Parallelogram[3];
+
+            p1 = AffineTransformation.Transform(p1, origin, translationMatrix);
+            p2 = AffineTransformation.Transform(p2, origin, translationMatrix);
+            p3 = AffineTransformation.Transform(p3, origin, translationMatrix);
+            p4 = AffineTransformation.Transform(p4, origin, translationMatrix);
+
+            p1 = AffineTransformation.Transform(p1, origin, rotationMatrix);
+            p2 = AffineTransformation.Transform(p2, origin, rotationMatrix);
+            p3 = AffineTransformation.Transform(p3, origin, rotationMatrix);
+            p4 = AffineTransformation.Transform(p4, origin, rotationMatrix);
+
+            p1 = AffineTransformation.Transform(p1, origin, scalingMatrix);
+            p2 = AffineTransformation.Transform(p2, origin, scalingMatrix);
+            p3 = AffineTransformation.Transform(p3, origin, scalingMatrix);
+            p4 = AffineTransformation.Transform(p4, origin, scalingMatrix);
+
+            p1 = AffineTransformation.Transform(p1, origin, rotationBackMatrix);
+            p2 = AffineTransformation.Transform(p2, origin, rotationBackMatrix);
+            p3 = AffineTransformation.Transform(p3, origin, rotationBackMatrix);
+            p4 = AffineTransformation.Transform(p4, origin, rotationBackMatrix);
+
+            p1 = AffineTransformation.Transform(p1, origin, translationBackMatrix);
+            p2 = AffineTransformation.Transform(p2, origin, translationBackMatrix);
+            p3 = AffineTransformation.Transform(p3, origin, translationBackMatrix);
+            p4 = AffineTransformation.Transform(p4, origin, translationBackMatrix);
+
+            Parallelogram[0] = p1;
+            Parallelogram[1] = p2;
+            Parallelogram[2] = p3;
+            Parallelogram[3] = p4;
+        }
+
+        Point ConvertPointToWin(System.Drawing.Point p)
+        {
+            return new Point(p.X, p.Y);
+        }
+
+        System.Drawing.Point ConvertPointToDraw(Point p)
+        {
+            return new System.Drawing.Point((int)p.X, (int)p.Y);
         }
 
         //draws parallelogram by 4 points
@@ -88,10 +188,8 @@ namespace WPF_TestProject2.ViewModels
                 convertedLine[i] = ConvertPoint(_step, xMid, yMid, convertedLine[i]);
             }
 
-            
-
             Canvas.Children.Add(GetLine(convertedLine[0], convertedLine[1]));
-            OnPropertyChanged(nameof(Canvas));
+            //OnPropertyChanged(nameof(Canvas));
         }
 
         private void DrawCoordinateSystem()
@@ -200,8 +298,6 @@ namespace WPF_TestProject2.ViewModels
             return new Point(x, y);
         }
 
-        
-
         private bool ParallelogramExists(Point p1, Point p2, Point p3)
         {
             if (GraphicsUtils.IsPointOnLine(p1, p2, p3) ||
@@ -241,8 +337,6 @@ namespace WPF_TestProject2.ViewModels
 
             return line;
         }
-
-        
 
         private double LineFunc(double a, double b, double x)
         {
@@ -351,6 +445,32 @@ namespace WPF_TestProject2.ViewModels
             {
                 MessageBox.Show("Wrong parallelogram edges");
             }
+        }
+
+        /// <summary>
+        /// Transform paralelogram draw it
+        /// </summary>
+        private DelegateCommand _transformCommand;
+
+        public ICommand TransformCommand
+        {
+            get
+            {
+                if (_transformCommand == null)
+                {
+                    _transformCommand = new DelegateCommand(TransAction);
+                }
+                return _transformCommand;
+            }
+        }
+
+        public void TransAction()
+        {
+            Transform();
+
+            DrawCoordinateSystem();
+            DrawParalellogram();
+            DrawLine();
         }
         #endregion
     }

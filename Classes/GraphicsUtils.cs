@@ -58,6 +58,12 @@ namespace WPF_TestProject2.Classes
                     Math.Pow((p2.Y - p1.Y), 2.0));
         }
 
+        public static float GetLength(System.Windows.Point p1, System.Windows.Point p2)
+        {
+            return (float)Math.Sqrt(Math.Pow((p2.X - p1.X), 2.0) +
+                    Math.Pow((p2.Y - p1.Y), 2.0));
+        }
+
         public static Point GetEndpoint(double angle, Point start, float lenght)
         {
             double radians = Math.PI / 180 * angle;
@@ -74,6 +80,27 @@ namespace WPF_TestProject2.Classes
             Point c = new Point(p2.X, p1.Y);
             float leg = GetLength(p1, c);
             float hupotenuse = GetLength(p1, p2);
+            if (hupotenuse == 0) return 0;
+            float angle = (float)Math.Acos(leg / hupotenuse) * 180.0f / (float)Math.PI;
+
+            if (p2.X >= p1.X && p2.Y <= p1.Y)
+                angle = angle;
+            else if (p2.X < p1.X && p2.Y <= p1.Y)
+                angle = 180 - angle;
+            else if (p2.X <= p1.X && p2.Y > p1.Y)
+                angle = 180 + angle;
+            else if (p2.X > p1.X && p2.Y > p1.Y)
+                angle = 0 - angle;
+
+            return angle;
+        }
+
+        public static float GetAngle(System.Windows.Point p1, System.Windows.Point p2)
+        {
+            System.Windows.Point c = new System.Windows.Point(p2.X, p1.Y);
+            float leg = GetLength(p1, c);
+            float hupotenuse = GetLength(p1, p2);
+            if (hupotenuse == 0) return 0;
             float angle = (float)Math.Acos(leg / hupotenuse) * 180.0f / (float)Math.PI;
 
             if (p2.X >= p1.X && p2.Y <= p1.Y)
